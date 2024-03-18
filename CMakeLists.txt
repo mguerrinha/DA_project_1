@@ -6,4 +6,6 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(DA_project_1
-        Graph.h)
+        data_structures/MutablePriorityQueue.h
+        data_structures/UFDS.cpp
+        data_structures/UFDS.h)
