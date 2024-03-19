@@ -11,6 +11,10 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "City.h"
+#include "Pipeline.h"
+#include "Reservoir.h"
+#include "Station.h"
 
 class WaterSupplyManager {
 private:
@@ -21,7 +25,12 @@ private:
 public:
     WaterSupplyManager();
 
-    void load_cities(const std::string &file);
+    static void load_cities(const std::string &file);
+
+    static void load_stations(const std::string &file);
+
+    static void load_reservoirs(const std::string &file);
+
 };
 
 
