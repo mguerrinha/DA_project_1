@@ -6,7 +6,7 @@
 
 WaterSupplyManager::WaterSupplyManager() = default;
 
-Graph<std::string> WaterSupplyManager::_waterSupplySystem;
+Graph WaterSupplyManager::_waterSupplySystem;
 
 void WaterSupplyManager::load_cities(const std::string &file) {
     std::ifstream arquivo(file);
@@ -84,5 +84,17 @@ void WaterSupplyManager::load_pipes(const std::string &file) {
             _waterSupplySystem.addEdge(spA, spB, capacity);
         }
     }
+}
+
+std::unordered_map<std::string, City> &WaterSupplyManager::getCityMap() {
+    return _cityMap;
+}
+
+std::unordered_map<std::string, Station> &WaterSupplyManager::getStationMap() {
+    return _stationMap;
+}
+
+std::unordered_map<std::string, Reservoir> &WaterSupplyManager::getReservoirMap() {
+    return _reservoirMap;
 }
 
