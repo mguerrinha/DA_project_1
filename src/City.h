@@ -30,6 +30,8 @@ public:
 
     [[nodiscard]] std::string getPopulation() const;
 
+    City (std::string name, std::string id, std::string code, std::string demand, std::string population) : _name(std::move(name)), _id(std::move(id)), _code(std::move(code)),
+                                                                                                            _demand(std::move(demand)), _population(std::move(population)) {};
 };
 
 #endif //DA_PROJECT_1_CITY_H

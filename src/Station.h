@@ -17,6 +17,8 @@ public:
     [[nodiscard]] std::string getId() const;
 
     [[nodiscard]] std::string getCode() const;
+
+    Station (std::string id, std::string code) : _id(std::move(id)), _code(std::move(code)) {};
 };
 
 #endif //DA_PROJECT_1_STATION_H

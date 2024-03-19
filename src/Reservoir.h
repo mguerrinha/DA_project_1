@@ -30,6 +30,8 @@ public:
 
     [[nodiscard]] std::string getMaxDelivery() const;
 
+    Reservoir (std::string name, std::string municipality, std::string id, std::string code, std::string maxDelivery) : _name(std::move(name)), _municipality(std::move(municipality)), _id(std::move(id)),
+                                                                                                                        _code(std::move(code)), _maxDelivery(std::move(maxDelivery)) {};
 };
 
 #endif //DA_PROJECT_1_RESERVOIR_H
