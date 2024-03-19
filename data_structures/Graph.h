@@ -5,6 +5,7 @@
 #define DA_TP_CLASSES_GRAPH
 
 #include <iostream>
+#include <utility>
 #include <vector>
 #include <queue>
 #include <limits>
@@ -22,7 +23,7 @@ class Edge;
 template <class T>
 class Vertex {
 public:
-    Vertex(T in);
+    Vertex(std::string in);
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
@@ -34,19 +35,19 @@ public:
     Edge<T> *getPath() const;
     std::vector<Edge<T> *> getIncoming() const;
 
-    void setInfo(T info);
+    void setInfo(const std::string& info);
     void setVisited(bool visited);
     void setProcesssing(bool processing);
     void setIndegree(unsigned int indegree);
     void setDist(double dist);
     void setPath(Edge<T> *path);
     Edge<T> * addEdge(Vertex<T> *dest, double w);
-    bool removeEdge(T in);
+    bool removeEdge(const std::string& in);
     void removeOutgoingEdges();
 
     friend class MutablePriorityQueue<Vertex>;
 protected:
-    T info;                // info node
+    std::string info;                // info node
     std::vector<Edge<T> *> adj;  // outgoing edges
 
     // auxiliary fields
@@ -68,10 +69,10 @@ protected:
 template <class T>
 class Edge {
 public:
-    Edge(Vertex<T> *orig, Vertex<T> *dest, double w);
+    Edge(Vertex<T> *orig, Vertex<T> *dest, double capacity);
 
     Vertex<T> * getDest() const;
-    double getWeight() const;
+    double getCapacity() const;
     bool isSelected() const;
     Vertex<T> * getOrig() const;
     Edge<T> *getReverse() const;
@@ -82,7 +83,7 @@ public:
     void setFlow(double flow);
 protected:
     Vertex<T> * dest; // destination vertex
-    double weight; // edge weight, can also be used for capacity
+    double capacity; // edge weight, can also be used for capacity
 
     // auxiliary fields
     bool selected = false;
@@ -103,38 +104,38 @@ public:
     /*
     * Auxiliary function to find a vertex with a given the content.
     */
-    Vertex<T> *findVertex(const T &in) const;
+    Vertex<T> *findVertex(const std::string &in) const;
     /*
      *  Adds a vertex with a given content or info (in) to a graph (this).
      *  Returns true if successful, and false if a vertex with that content already exists.
      */
-    bool addVertex(const T &in);
-    bool removeVertex(const T &in);
+    bool addVertex(const std::string &in);
+    bool removeVertex(const std::string &in);
 
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination vertices and the edge weight (w).
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
-    bool addEdge(const T &sourc, const T &dest, double w);
-    bool removeEdge(const T &source, const T &dest);
-    bool addBidirectionalEdge(const T &sourc, const T &dest, double w);
+    bool addEdge(const std::string &sourc, const std::string &dest, double capacity);
+    bool removeEdge(const std::string &source, const std::string &dest);
+    bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double capacity);
 
     int getNumVertex() const;
-    std::vector<Vertex<T> *> getVertexSet() const;
+    std::unordered_map<std::string, Vertex<T>*> getVertexMap() const;
 
     std:: vector<T> dfs() const;
-    std:: vector<T> dfs(const T & source) const;
+    std:: vector<T> dfs(const std::string & source) const;
     void dfsVisit(Vertex<T> *v,  std::vector<T> & res) const;
-    std::vector<T> bfs(const T & source) const;
+    std::vector<T> bfs(const std::string & source) const;
 
     bool isDAG() const;
     bool dfsIsDAG(Vertex<T> *v) const;
     std::vector<T> topsort() const;
 
-    bool addBidirectionalEdgeEdmond(const T &sourc, const T &dest, double w);
+    bool addBidirectionalEdgeEdmond(const std::string &sourc, const std::string &dest, double capacity);
 protected:
-    std::unordered_map<string, T> vertexMap;
+    std::unordered_map<std::string, Vertex<T>*> vertexMap;
 
     double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
     int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
@@ -142,7 +143,7 @@ protected:
     /*
      * Finds the index of the vertex with a given content.
      */
-    int findVertexIdx(const T &in) const;
+    int findVertexIdx(const std::string &in) const;
 };
 
 void deleteMatrix(int **m, int n);
@@ -152,14 +153,14 @@ void deleteMatrix(double **m, int n);
 /************************* Vertex  **************************/
 
 template <class T>
-Vertex<T>::Vertex(T in): info(in) {}
+Vertex<T>::Vertex(std::string in): info(std::move(in)) {}
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
  */
 template <class T>
-Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double w) {
-    auto newEdge = new Edge<T>(this, d, w);
+Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double capacity) {
+    auto newEdge = new Edge<T>(this, d, capacity);
     adj.push_back(newEdge);
     d->incoming.push_back(newEdge);
     return newEdge;
@@ -171,7 +172,7 @@ Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double w) {
  * Returns true if successful, and false if such edge does not exist.
  */
 template <class T>
-bool Vertex<T>::removeEdge(T in) {
+bool Vertex<T>::removeEdge(const std::string& in) {
     bool removedEdge = false;
     auto it = adj.begin();
     while (it != adj.end()) {
@@ -248,7 +249,7 @@ std::vector<Edge<T> *> Vertex<T>::getIncoming() const {
 }
 
 template <class T>
-void Vertex<T>::setInfo(T in) {
+void Vertex<T>::setInfo(const std::string& in) {
     this->info = in;
 }
 
@@ -296,7 +297,7 @@ void Vertex<T>::deleteEdge(Edge<T> *edge) {
 /********************** Edge  ****************************/
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *orig, Vertex<T> *dest, double w): orig(orig), dest(dest), weight(w) {}
+Edge<T>::Edge(Vertex<T> *orig, Vertex<T> *dest, double capacity): orig(orig), dest(dest), capacity(capacity) {}
 
 template <class T>
 Vertex<T> * Edge<T>::getDest() const {
@@ -304,8 +305,8 @@ Vertex<T> * Edge<T>::getDest() const {
 }
 
 template <class T>
-double Edge<T>::getWeight() const {
-    return this->weight;
+double Edge<T>::getCapacity() const {
+    return this->capacity;
 }
 
 template <class T>
@@ -347,33 +348,34 @@ void Edge<T>::setFlow(double flow) {
 
 template <class T>
 int Graph<T>::getNumVertex() const {
-    return vertexSet.size();
+    return vertexMap.size();
 }
 
 template <class T>
-std::vector<Vertex<T> *> Graph<T>::getVertexSet() const {
-    return vertexSet;
+std::unordered_map<std::string, Vertex<T>*> Graph<T>::getVertexMap() const {
+    return vertexMap;
 }
 
 /*
  * Auxiliary function to find a vertex with a given content.
  */
 template <class T>
-Vertex<T> * Graph<T>::findVertex(const T &in) const {
-    for (auto v : vertexSet)
-        if (v->getInfo() == in)
-            return v;
-    return nullptr;
+Vertex<T> * Graph<T>::findVertex(const std::string &in) const {
+    auto it = vertexMap.find(in);
+    return (it != vertexMap.end()) ? it->second : nullptr;
 }
 
 /*
  * Finds the index of the vertex with a given content.
  */
 template <class T>
-int Graph<T>::findVertexIdx(const T &in) const {
-    for (unsigned i = 0; i < vertexSet.size(); i++)
-        if (vertexSet[i]->getInfo() == in)
-            return i;
+int Graph<T>::findVertexIdx(const std::string &in) const {
+    int count = 0;
+    for (auto i : vertexMap) {
+        if (i.first == in)
+            return count;
+        count++;
+    }
     return -1;
 }
 /*
@@ -381,10 +383,11 @@ int Graph<T>::findVertexIdx(const T &in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 template <class T>
-bool Graph<T>::addVertex(const T &in) {
-    if (findVertex(in) != nullptr)
+bool Graph<T>::addVertex(const std::string &in) {
+    Vertex<T>* aux = findVertex(in);
+    if (aux != nullptr)
         return false;
-    vertexSet.push_back(new Vertex<T>(in));
+    vertexMap.insert(std::make_pair(in, aux));
     return true;
 }
 
@@ -394,15 +397,15 @@ bool Graph<T>::addVertex(const T &in) {
  *  Returns true if successful, and false if such vertex does not exist.
  */
 template <class T>
-bool Graph<T>::removeVertex(const T &in) {
-    for (auto it = vertexSet.begin(); it != vertexSet.end(); it++) {
-        if ((*it)->getInfo() == in) {
+bool Graph<T>::removeVertex(const std::string &in) {
+    for (auto it = vertexMap.begin(); it != vertexMap.end(); it++) {
+        if ((*it).first == in) {
             auto v = *it;
             v->removeOutgoingEdges();
-            for (auto u : vertexSet) {
-                u->removeEdge(v->getInfo());
+            for (auto u : vertexMap) {
+                u->removeEdge(v.first);
             }
-            vertexSet.erase(it);
+            vertexMap.erase(it);
             delete v;
             return true;
         }
@@ -416,7 +419,7 @@ bool Graph<T>::removeVertex(const T &in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 template <class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
+bool Graph<T>::addEdge(const std::string &sourc, const std::string &dest, double w) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -431,7 +434,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
  * Returns true if successful, and false if such edge does not exist.
  */
 template <class T>
-bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
+bool Graph<T>::removeEdge(const std::string &sourc, const std::string &dest) {
     Vertex<T> * srcVertex = findVertex(sourc);
     if (srcVertex == nullptr) {
         return false;
@@ -440,13 +443,13 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 }
 
 template <class T>
-bool Graph<T>::addBidirectionalEdge(const T &sourc, const T &dest, double w) {
+bool Graph<T>::addBidirectionalEdge(const std::string &sourc, const std::string &dest, double capacity) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    auto e1 = v1->addEdge(v2, w);
-    auto e2 = v2->addEdge(v1, w);
+    auto e1 = v1->addEdge(v2, capacity);
+    auto e2 = v2->addEdge(v1, capacity);
     e1->setReverse(e2);
     e2->setReverse(e1);
     return true;
@@ -461,10 +464,10 @@ bool Graph<T>::addBidirectionalEdge(const T &sourc, const T &dest, double w) {
 template <class T>
 std::vector<T> Graph<T>::dfs() const {
     std::vector<T> res;
-    for (auto v : vertexSet)
-        v->setVisited(false);
-    for (auto v : vertexSet)
-        if (!v->isVisited())
+    for (auto v : vertexMap)
+        v.second->setVisited(false);
+    for (auto v : vertexMap)
+        if (!v.second->isVisited())
             dfsVisit(v, res);
     return res;
 }
@@ -474,7 +477,7 @@ std::vector<T> Graph<T>::dfs() const {
  * Returns a vector with the contents of the vertices by dfs order.
  */
 template <class T>
-std::vector<T> Graph<T>::dfs(const T & source) const {
+std::vector<T> Graph<T>::dfs(const std::string &source) const {
     std::vector<int> res;
     // Get the source vertex
     auto s = findVertex(source);
@@ -482,8 +485,8 @@ std::vector<T> Graph<T>::dfs(const T & source) const {
         return res;
     }
     // Set that no vertex has been visited yet
-    for (auto v : vertexSet) {
-        v->setVisited(false);
+    for (auto v : vertexMap) {
+        v.second->setVisited(false);
     }
     // Perform the actual DFS using recursion
     dfsVisit(s, res);
@@ -514,8 +517,8 @@ void Graph<T>::dfsVisit(Vertex<T> *v, std::vector<T> & res) const {
  * Returns a vector with the contents of the vertices by bfs order.
  */
 template <class T>
-std::vector<T> Graph<T>::bfs(const T & source) const {
-    std::vector<int> res;
+std::vector<T> Graph<T>::bfs(const std::string & source) const {
+    std::vector<std::string> res;
     // Get the source vertex
     auto s = findVertex(source);
     if (s == nullptr) {
@@ -523,8 +526,8 @@ std::vector<T> Graph<T>::bfs(const T & source) const {
     }
 
     // Set that no vertex has been visited yet
-    for (auto v : vertexSet) {
-        v->setVisited(false);
+    for (auto v : vertexMap) {
+        v.second->setVisited(false);
     }
 
     // Perform the actual BFS using a queue
@@ -557,13 +560,13 @@ std::vector<T> Graph<T>::bfs(const T & source) const {
 
 template <class T>
 bool Graph<T>::isDAG() const {
-    for (auto v : vertexSet) {
-        v->setVisited(false);
-        v->setProcesssing(false);
+    for (auto v : vertexMap) {
+        v.second->setVisited(false);
+        v.second->setProcesssing(false);
     }
-    for (auto v : vertexSet) {
-        if (! v->isVisited()) {
-            if ( ! dfsIsDAG(v) ) return false;
+    for (auto v : vertexMap) {
+        if (! v.second->isVisited()) {
+            if ( ! dfsIsDAG(v.second) ) return false;
         }
     }
     return true;
@@ -604,19 +607,19 @@ template<class T>
 std::vector<T> Graph<T>::topsort() const {
     std::vector<int> res;
 
-    for (auto v : vertexSet) {
-        v->setIndegree(0);
+    for (auto v : vertexMap) {
+        v.second->setIndegree(0);
     }
-    for (auto v : vertexSet) {
-        for (auto e : v->getAdj()) {
+    for (auto v : vertexMap) {
+        for (auto e : v.second->getAdj()) {
             unsigned int indegree = e->getDest()->getIndegree();
             e->getDest()->setIndegree(indegree + 1);
         }
     }
 
     std::queue<Vertex<T> *> q;
-    for (auto v : vertexSet) {
-        if (v->getIndegree() == 0) {
+    for (auto v : vertexMap) {
+        if (v.second->getIndegree() == 0) {
             q.push(v);
         }
     }
@@ -634,7 +637,7 @@ std::vector<T> Graph<T>::topsort() const {
         }
     }
 
-    if ( res.size() != vertexSet.size() ) {
+    if ( res.size() != vertexMap.size() ) {
         //std::cout << "Impossible topological ordering!" << std::endl;
         res.clear();
         return res;
@@ -663,17 +666,17 @@ inline void deleteMatrix(double **m, int n) {
 
 template <class T>
 Graph<T>::~Graph() {
-    deleteMatrix(distMatrix, vertexSet.size());
-    deleteMatrix(pathMatrix, vertexSet.size());
+    deleteMatrix(distMatrix, vertexMap.size());
+    deleteMatrix(pathMatrix, vertexMap.size());
 }
 
 template <class T>
-bool Graph<T>::addBidirectionalEdgeEdmond(const T &sourc, const T &dest, double w) {
+bool Graph<T>::addBidirectionalEdgeEdmond(const std::string &sourc, const std::string &dest, double capacity) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    auto e1 = v1->addEdge(v2, w);
+    auto e1 = v1->addEdge(v2, capacity);
     auto e2 = v2->addEdge(v1, 0);
     e1->setReverse(e2);
     e2->setReverse(e1);
