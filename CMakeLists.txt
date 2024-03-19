@@ -15,4 +15,11 @@ add_executable(DA_project_1
         src/main.cpp
         src/Reservoir.h
         src/Station.h
-        data_structures/Graph.h)
+        data_structures/Graph.h
+        src/Station.cpp
+        src/City.cpp
+        src/Reservoir.cpp
+        src/WaterSupplyManager.h
+        src/WaterSupplyManager.cpp
+        src/Pipeline.h
+        src/Pipeline.cpp)

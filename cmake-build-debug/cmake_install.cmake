@@ -1,4 +1,4 @@
-# Install script for directory: /home/miguel/FEUP/leic2/2semestre/DA/DA_project_1
+# Install script for directory: /home/rui/Documentos/Faculdade/DA/DA_project_1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/miguel/FEUP/leic2/2semestre/DA/DA_project_1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,3 +1,3 @@
-/home/miguel/FEUP/leic2/2semestre/DA/DA_project_1/cmake-build-debug/CMakeFiles/DA_project_1.dir
-/home/miguel/FEUP/leic2/2semestre/DA/DA_project_1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/miguel/FEUP/leic2/2semestre/DA/DA_project_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/DA_project_1.dir
+/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
