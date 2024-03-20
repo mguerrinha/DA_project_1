@@ -24,6 +24,15 @@ void Interface::run() {
                 _waterSupplyManager.load_cities("../Project1DataSetSmall/Cities_Madeira.csv");
                 _waterSupplyManager.load_pipes("../Project1DataSetSmall/Pipes_Madeira.csv");
                 break;
+            case 2:
+                _waterSupplyManager.load_stations("../Project1LargeDataSet/Stations.csv");
+                _waterSupplyManager.load_reservoirs("../Project1LargeDataSet/Reservoirs.csv");
+                _waterSupplyManager.load_cities("../Project1LargeDataSet/Cities.csv");
+                _waterSupplyManager.load_pipes("../Project1LargeDataSet/Pipes.csv");
+                break;
+            default:
+                std::cout << "Invalid option" << std::endl;
+                break;
 
         }
 

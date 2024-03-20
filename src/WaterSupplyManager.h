@@ -42,6 +42,12 @@ public:
     std::unordered_map<std::string, Station> &getStationMap();
 
     std::unordered_map<std::string, Reservoir> &getReservoirMap();
+
+    void edmondsKarpEach();
+
+    void edmondsKarpSpecific(const std::string &target);
+
+    void edmondsKarp(const std::string &source, const std::string &target);
 };
 
 

@@ -98,3 +98,15 @@ std::unordered_map<std::string, Reservoir> &WaterSupplyManager::getReservoirMap(
     return _reservoirMap;
 }
 
+void WaterSupplyManager::edmondsKarpEach() {
+
+}
+
+void WaterSupplyManager::edmondsKarpSpecific(const std::string &target) {
+
+}
+
+void WaterSupplyManager::edmondsKarp(const std::string &source, const std::string &target) {
+
+}
+
