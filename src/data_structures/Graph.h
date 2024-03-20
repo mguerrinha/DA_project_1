@@ -13,6 +13,8 @@
 #include "Vertex.h"
 #include "Edge.h"
 
+#define INF std::numeric_limits<double>::max()
+
 class Vertex;
 class Edge;
 

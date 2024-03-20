@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(DA_project_1)
 
-set(CMAKE_C_STANDARD 11)
-
-include_directories(.)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(DA_project_1
         src/data_structures/MutablePriorityQueue.h
