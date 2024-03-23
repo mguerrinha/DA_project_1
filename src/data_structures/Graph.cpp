@@ -4,7 +4,7 @@
 
 #include "Graph.h"
 
-int Graph::getNumVertex() const {
+unsigned int Graph::getNumVertex() const {
     return vertexSet.size();
 }
 
@@ -228,11 +228,6 @@ bool Graph::dfsIsDAG(Vertex *v) const {
     }
     v->setProcesssing(false);
     return true;
-}
-
-Graph::~Graph() {
-    deleteMatrix(distMatrix, vertexSet.size());
-    deleteMatrix(pathMatrix, vertexSet.size());
 }
 
 bool Graph::addBidirectionalEdgeEdmond(const std::string &sourc, const std::string &dest, double capacity) const {

@@ -18,7 +18,7 @@
 
 class WaterSupplyManager {
 private:
-    static Graph _waterSupplySystem;
+    Graph _waterSupplySystem;
 
     std::unordered_map<std::string, City> _cityMap;
 
@@ -37,17 +37,24 @@ public:
 
     void load_pipes(const std::string &file);
 
+    Graph getWaterSupplySystem();
+
     std::unordered_map<std::string, City> &getCityMap();
 
     std::unordered_map<std::string, Station> &getStationMap();
 
     std::unordered_map<std::string, Reservoir> &getReservoirMap();
 
-    void edmondsKarpEach();
+    Graph* getGraphCopy(Graph* graph);
+
+    bool bfsEdmondsKarp(Graph* graph, Vertex *source, Vertex *target);
+
+    void edmondsKarp(const std::string &source, const std::string &target);
 
     void edmondsKarpSpecific(const std::string &target);
 
-    void edmondsKarp(const std::string &source, const std::string &target);
+    void edmondsKarpEach();
+
 };
 
 

@@ -13,12 +13,13 @@
 #include "Vertex.h"
 #include "Edge.h"
 
+#define INF std::numeric_limits<double>::max()
+
 class Vertex;
 class Edge;
 
 class Graph {
 public:
-    ~Graph();
     /*
     * Auxiliary function to find a vertex with a given the content.
     */
@@ -39,7 +40,7 @@ public:
     bool removeEdge(const std::string &source, const std::string &dest) const;
     bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double capacity) const;
 
-    [[nodiscard]] int getNumVertex() const;
+    [[nodiscard]] unsigned int getNumVertex() const;
     [[nodiscard]] std::vector<Vertex *> getVertexSet() const;
 
     [[nodiscard]] std:: vector<std::string> dfs() const;
@@ -54,34 +55,10 @@ public:
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 
-    double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
-    int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
-
     /*
      * Finds the index of the vertex with a given content.
      */
     [[nodiscard]] int findVertexIdx(const std::string &in) const;
 };
-
-void deleteMatrix(int **m, int n);
-void deleteMatrix(double **m, int n);
-
-inline void deleteMatrix(int **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
-}
-
-inline void deleteMatrix(double **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
-}
 
 #endif /* DA_TP_CLASSES_GRAPH */
