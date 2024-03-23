@@ -18,7 +18,7 @@
 
 class WaterSupplyManager {
 private:
-    Graph* _waterSupplySystem;
+    Graph _waterSupplySystem;
 
     std::unordered_map<std::string, City> _cityMap;
 
@@ -37,7 +37,7 @@ public:
 
     void load_pipes(const std::string &file);
 
-    Graph* getWaterSupplySystem();
+    Graph getWaterSupplySystem();
 
     std::unordered_map<std::string, City> &getCityMap();
 
