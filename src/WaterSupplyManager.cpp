@@ -50,12 +50,13 @@ void WaterSupplyManager::load_reservoirs(const std::string &file) {
 
     while (std::getline(arquivo, linha)) {
         std::stringstream linhaStream(linha);
-        std::string name, municipality, id, code, maxDelivery;
+        std::string name, municipality, id, code;
+        int maxDelivery;
         if (std::getline(linhaStream, name, ',')
             && std::getline(linhaStream, municipality, ',')
             && std::getline(linhaStream, id, ',')
             && std::getline(linhaStream, code, ',')
-            && std::getline(linhaStream, maxDelivery, '\r')) {
+            && linhaStream >> maxDelivery) {
             Reservoir reservoir = Reservoir (name, municipality, id, code, maxDelivery);
             _waterSupplySystem.addVertex(code);
             _reservoirMap.emplace(code, reservoir);
@@ -193,7 +194,7 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
     }
 }
 
-void WaterSupplyManager::edmondsKaroInit() {
+void WaterSupplyManager::edmondsKarpInit() {
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         for (Edge* edge : vertex->getAdj()) {
             edge->setFlow(0);
@@ -203,7 +204,8 @@ void WaterSupplyManager::edmondsKaroInit() {
     _waterSupplySystem.addVertex("target");
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'R') {
-            _waterSupplySystem.addEdge("source", vertex->getInfo(), INF);
+            Reservoir reservoir = _reservoirMap.at(vertex->getInfo());
+            _waterSupplySystem.addEdge("source", vertex->getInfo(), reservoir.getMaxDelivery());
         }
         else if (vertex->getInfo()[0] == 'C') {
             _waterSupplySystem.addEdge(vertex->getInfo(), "target", INF);

@@ -27,7 +27,7 @@ void Interface::run() {
         std::cout << vertex->getInfo() << std::endl;
     }
 
-    _waterSupplyManager.edmondsKaroInit();
+    _waterSupplyManager.edmondsKarpInit();
 
 
 

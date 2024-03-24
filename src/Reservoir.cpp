@@ -21,6 +21,6 @@ std::string Reservoir::getCode() const {
     return _code;
 }
 
-std::string Reservoir::getMaxDelivery() const {
+int Reservoir::getMaxDelivery() const {
     return _maxDelivery;
 }

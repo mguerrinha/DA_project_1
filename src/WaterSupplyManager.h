@@ -51,7 +51,7 @@ public:
 
     void edmondsKarp(const std::string &source, const std::string &target);
 
-    void edmondsKaroInit();
+    void edmondsKarpInit();
 };
 
 
