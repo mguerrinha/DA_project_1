@@ -51,7 +51,9 @@ public:
 
     void edmondsKarp(const std::string &source, const std::string &target);
 
-    void edmondsKarpInit();
+    void maxFlowEachCity();
+
+    void maxFlowSpecificCity(const std::string &city);
 };
 
 

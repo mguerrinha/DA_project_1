@@ -194,7 +194,7 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
     }
 }
 
-void WaterSupplyManager::edmondsKarpInit() {
+void WaterSupplyManager::maxFlowEachCity() {
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         for (Edge* edge : vertex->getAdj()) {
             edge->setFlow(0);
@@ -225,6 +225,20 @@ void WaterSupplyManager::edmondsKarpInit() {
     }
     _waterSupplySystem.removeVertex("source");
     _waterSupplySystem.removeVertex("target");
+}
+
+void WaterSupplyManager::maxFlowSpecificCity(const std::string &city) {
+    maxFlowEachCity();
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo() == city) {
+            double maxFlow = 0;
+            for (Edge* edge : vertex->getIncoming()) {
+                maxFlow += edge->getFlow();
+            }
+            std::cout << vertex->getInfo() << " " << maxFlow << std::endl;
+        }
+    }
+
 }
 
 
