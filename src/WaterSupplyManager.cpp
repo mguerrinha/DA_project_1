@@ -266,7 +266,7 @@ void WaterSupplyManager::analysisMetrics() {
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         for (Edge* e : v->getAdj()) {
             if (!e->isSelected()) {
-                current_difference = e->getWeight()-e->getFlow();
+                current_difference = e->getWeight()-std::abs(e->getFlow());
                 _differences.push_back(current_difference);
                 e->setSelected(true);
                 if (current_difference > max_dif) max_dif = current_difference;
