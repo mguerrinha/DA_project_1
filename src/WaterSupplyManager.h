@@ -15,6 +15,7 @@
 #include "Pipeline.h"
 #include "Reservoir.h"
 #include "Station.h"
+#include <cmath>
 
 class WaterSupplyManager {
 private:
@@ -56,6 +57,10 @@ public:
     void maxFlowSpecificCity(const std::string &city);
 
     void checkSuficientFlow();
+
+    void analysisMetrics();
+
+    void balanceFlow();
 };
 
 
