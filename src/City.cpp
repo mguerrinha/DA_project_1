@@ -16,10 +16,10 @@ std::string City::getCode() const {
     return _code;
 }
 
-std::string City::getDemand() const {
+int City::getDemand() const {
     return _demand;
 }
 
-std::string City::getPopulation() const {
+int City::getPopulation() const {
     return _population;
 }

@@ -15,9 +15,9 @@ private:
 
     std::string _code;
 
-    std::string _demand;
+    int _demand;
 
-    std::string _population;
+    int _population;
 
 public:
     [[nodiscard]] std::string getName() const;
@@ -26,12 +26,12 @@ public:
 
     [[nodiscard]] std::string getCode() const;
 
-    [[nodiscard]] std::string getDemand() const;
+    [[nodiscard]] int getDemand() const;
 
-    [[nodiscard]] std::string getPopulation() const;
+    [[nodiscard]] int getPopulation() const;
 
-    City (std::string name, std::string id, std::string code, std::string demand, std::string population) : _name(std::move(name)), _id(std::move(id)), _code(std::move(code)),
-                                                                                                            _demand(std::move(demand)), _population(std::move(population)) {};
+    City (std::string name, std::string id, std::string code, int demand, int population) : _name(std::move(name)), _id(std::move(id)), _code(std::move(code)),
+                                                                                                            _demand(demand), _population(population) {};
 };
 
 #endif //DA_PROJECT_1_CITY_H

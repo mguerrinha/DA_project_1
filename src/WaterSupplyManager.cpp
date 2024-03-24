@@ -13,12 +13,14 @@ void WaterSupplyManager::load_cities(const std::string &file) {
 
     while (std::getline(arquivo, linha)) {
         std::stringstream linhaStream(linha);
-        std::string name, id, code, demand, population;
+        std::string name, id, code;
+        int demand, population;
         if (std::getline(linhaStream, name, ',')
             && std::getline(linhaStream, id, ',')
             && std::getline(linhaStream, code, ',')
-            && std::getline(linhaStream, demand, ',')
-            && std::getline(linhaStream, population, '\r')) {
+            && linhaStream >> demand
+            && linhaStream.ignore()
+            && linhaStream >> population) {
             City city = City(name, id, code, demand, population);
             _waterSupplySystem.addVertex(code);
             _cityMap.emplace(code, city);
@@ -239,6 +241,24 @@ void WaterSupplyManager::maxFlowSpecificCity(const std::string &city) {
         }
     }
 
+}
+
+void WaterSupplyManager::checkSuficientFlow() {
+    maxFlowEachCity();
+    std::cout << "Cities without enough water:" << std::endl;
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo()[0] == 'C') {
+            double maxFlow = 0;
+            for (Edge* edge : vertex->getIncoming()) {
+                maxFlow += edge->getFlow();
+            }
+            City city = _cityMap.at(vertex->getInfo());
+            if (maxFlow < city.getDemand()) {
+                double dif = city.getDemand() - maxFlow;
+                std::cout << vertex->getInfo() << " as a deficit of: " << dif << std::endl;
+            }
+        }
+    }
 }
 
 

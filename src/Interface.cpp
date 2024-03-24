@@ -9,25 +9,24 @@ WaterSupplyManager Interface::_waterSupplyManager;
 
 void Interface::run() {
     bool running = true;
-/*
+
     _waterSupplyManager.load_stations("../Project1LargeDataSet/Stations.csv");
     _waterSupplyManager.load_reservoirs("../Project1LargeDataSet/Reservoir.csv");
     _waterSupplyManager.load_cities("../Project1LargeDataSet/Cities.csv");
     _waterSupplyManager.load_pipes("../Project1LargeDataSet/Pipes.csv");
-    */
+    /*
     _waterSupplyManager.load_stations("../Project1DataSetSmall/Stations_Madeira.csv");
     _waterSupplyManager.load_reservoirs("../Project1DataSetSmall/Reservoirs_Madeira.csv");
     _waterSupplyManager.load_cities("../Project1DataSetSmall/Cities_Madeira.csv");
     _waterSupplyManager.load_pipes("../Project1DataSetSmall/Pipes_Madeira.csv");
-
+*/
     std::cout << "Welcome to our system of water supply management";
 
     for (Vertex* vertex : _waterSupplyManager.getWaterSupplySystem().getVertexSet()) {
         std::cout << vertex->getInfo() << std::endl;
     }
 
-    _waterSupplyManager.maxFlowEachCity();
-    _waterSupplyManager.maxFlowSpecificCity("C_1");
+    _waterSupplyManager.checkSuficientFlow();
 }
 
 int Interface::displayMainMenu() {

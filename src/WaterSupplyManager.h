@@ -54,6 +54,8 @@ public:
     void maxFlowEachCity();
 
     void maxFlowSpecificCity(const std::string &city);
+
+    void checkSuficientFlow();
 };
 
 
