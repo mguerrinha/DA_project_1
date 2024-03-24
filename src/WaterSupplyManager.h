@@ -51,10 +51,7 @@ public:
 
     void edmondsKarp(const std::string &source, const std::string &target);
 
-    void edmondsKarpSpecific(const std::string &target);
-
-    void edmondsKarpEach();
-
+    void edmondsKaroInit();
 };
 
 

@@ -18,7 +18,7 @@ void WaterSupplyManager::load_cities(const std::string &file) {
             && std::getline(linhaStream, id, ',')
             && std::getline(linhaStream, code, ',')
             && std::getline(linhaStream, demand, ',')
-            && std::getline(linhaStream, population, ',')) {
+            && std::getline(linhaStream, population, '\r')) {
             City city = City(name, id, code, demand, population);
             _waterSupplySystem.addVertex(code);
             _cityMap.emplace(code, city);
@@ -35,7 +35,7 @@ void WaterSupplyManager::load_stations(const std::string &file) {
         std::stringstream linhaStream(linha);
         std::string id, code;
         if (std::getline(linhaStream, id, ',')
-            && std::getline(linhaStream, code, ',')) {
+            && std::getline(linhaStream, code, '\r')) {
             Station station = Station (id, code);
             _waterSupplySystem.addVertex(code);
             _stationMap.emplace(code, station);
@@ -55,7 +55,7 @@ void WaterSupplyManager::load_reservoirs(const std::string &file) {
             && std::getline(linhaStream, municipality, ',')
             && std::getline(linhaStream, id, ',')
             && std::getline(linhaStream, code, ',')
-            && std::getline(linhaStream, maxDelivery, ',')) {
+            && std::getline(linhaStream, maxDelivery, '\r')) {
             Reservoir reservoir = Reservoir (name, municipality, id, code, maxDelivery);
             _waterSupplySystem.addVertex(code);
             _reservoirMap.emplace(code, reservoir);
@@ -193,20 +193,39 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
     }
 }
 
-void WaterSupplyManager::edmondsKarpSpecific(const std::string &target) {
+void WaterSupplyManager::edmondsKaroInit() {
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        for (Edge* edge : vertex->getAdj()) {
+            edge->setFlow(0);
+        }
+    }
+    _waterSupplySystem.addVertex("source");
+    _waterSupplySystem.addVertex("target");
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'R') {
-            edmondsKarp(vertex->getInfo(), target);
+            _waterSupplySystem.addEdge("source", vertex->getInfo(), INF);
+        }
+        else if (vertex->getInfo()[0] == 'C') {
+            _waterSupplySystem.addEdge(vertex->getInfo(), "target", INF);
         }
     }
+    edmondsKarp("source", "target");
+
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        double maxFlow = 0;
+        if (vertex->getInfo() == "target") {
+            for (Edge* edge : vertex->getIncoming()) {
+                maxFlow += edge->getFlow();
+            }
+            std::cout << vertex->getInfo() << " " << maxFlow << std::endl;
+
+        }
+    }
+    _waterSupplySystem.removeVertex("source");
+    _waterSupplySystem.removeVertex("target");
 }
 
-void WaterSupplyManager::edmondsKarpEach() {
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
-        if (vertex->getInfo()[0] == 'C') {
-            edmondsKarpSpecific(vertex->getInfo());
-        }
-    }
-}
+
+
 
 
