@@ -43,6 +43,11 @@ void Interface::run() {
             case 5:
                 _waterSupplyManager.analysisMetrics();
                 break;
+            case 6:
+                _waterSupplyManager.balanceFlow();
+                break;
+            default:
+                break;
         }
     }
 }
@@ -54,6 +59,7 @@ int Interface::displayMainMenu() {
     std::cout << "3 --> General Max Flow" << std::endl;
     std::cout << "4 --> Max Flow for a specific City" << std::endl;
     std::cout << "5 --> Analyze the current metrics of the graph" << std::endl;
+    std::cout << "6 --> Balance pipes" << std::endl;
     std::cout << "0 --> Exit" << std::endl;
     std::cout << "Choose one option: ";
     int option;

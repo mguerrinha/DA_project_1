@@ -296,5 +296,60 @@ void WaterSupplyManager::analysisMetrics() {
 }
 
 void WaterSupplyManager::balanceFlow() {
+    std::vector<std::pair<double, Edge*>> auxEdges;
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        for (Edge* e : v->getAdj()) {
+            if (!e->isSelected()) {
+                auxEdges.emplace_back(e->getFlow()/ e->getWeight(), e);
+                e->setSelected(true);
+            }
+        }
+    }
 
+    std::sort(auxEdges.begin(), auxEdges.end(), [](const auto& a, const auto& b) {
+        return a.first > b.first;
+    });
+
+    for (const auto& pair : auxEdges) { // Antes
+        std::cout << pair.first << std::endl;
+    }
+
+    for (auto& overloaded : auxEdges) {
+        for (auto& underloaded : auxEdges) {
+            if(overloaded.second->getOrig() == underloaded.second->getOrig() && overloaded.second->getDest() == underloaded.second->getDest()) continue;
+
+            if(overloaded.first < 0 || underloaded.first < 0) continue;
+
+            if(overloaded.first >= 0.5 && overloaded.first < 0.6) continue;
+
+            if(underloaded.first >= 0.5 && underloaded.first < 0.6) continue;
+
+            if(underloaded.first == 0 && overloaded.second->getFlow() < underloaded.second->getWeight()) {
+                double excessFlow = overloaded.second->getFlow() / 2;
+                overloaded.second->setFlow(overloaded.second->getFlow() - excessFlow);
+                overloaded.first = overloaded.second->getFlow() / overloaded.second->getWeight();
+                underloaded.second->setFlow(underloaded.second->getFlow() + excessFlow);
+                underloaded.first = underloaded.second->getFlow() / underloaded.second->getWeight();
+            }
+            if (overloaded.first - underloaded.first > 0.45 && overloaded.second->getFlow() < underloaded.second->getWeight()) {
+                double excessFlow = overloaded.second->getFlow() * 0.45;
+                overloaded.second->setFlow(overloaded.second->getFlow() - excessFlow);
+                overloaded.first = overloaded.second->getFlow() / overloaded.second->getWeight();
+                underloaded.second->setFlow(underloaded.second->getFlow() + excessFlow);
+                underloaded.first = underloaded.second->getFlow() / underloaded.second->getWeight();
+            }
+        }
+    }
+
+    std::cout << "----------------------" << std::endl;
+
+    for (const auto& pair : auxEdges) { // Depois
+        std::cout << pair.first << std::endl;
+    }
+
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        for (Edge* e : v->getAdj()) {
+            e->setSelected(false);
+        }
+    }
 }
