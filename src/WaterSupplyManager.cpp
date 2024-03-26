@@ -210,7 +210,8 @@ void WaterSupplyManager::maxFlowEachCity() {
             _waterSupplySystem.addEdge("source", vertex->getInfo(), reservoir.getMaxDelivery());
         }
         else if (vertex->getInfo()[0] == 'C') {
-            _waterSupplySystem.addEdge(vertex->getInfo(), "target", INF);
+            City city = _cityMap.at(vertex->getInfo());
+            _waterSupplySystem.addEdge(vertex->getInfo(), "target", city.getDemand());
         }
     }
     edmondsKarp("source", "target");
