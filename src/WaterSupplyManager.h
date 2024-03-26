@@ -40,6 +40,8 @@ public:
 
     Graph getWaterSupplySystem();
 
+    void evaluateReservoirImpact(const std::string& reservoirToRemove);
+
     std::unordered_map<std::string, City> &getCityMap();
 
     std::unordered_map<std::string, Station> &getStationMap();
