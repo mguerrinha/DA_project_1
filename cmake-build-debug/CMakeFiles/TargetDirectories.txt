@@ -1,3 +1,0 @@
-/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/DA_project_1.dir
-/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/rui/Documentos/Faculdade/DA/DA_project_1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
