@@ -108,7 +108,6 @@ Graph WaterSupplyManager::getWaterSupplySystem() {
 Graph* WaterSupplyManager::getGraphCopy(Graph *graph) {
     auto* newGraph = new Graph();
 
-    // Copy all vertices
     for (auto v : graph->getVertexSet()) {
 
         newGraph->addVertex(v->getInfo());
@@ -163,18 +162,15 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
     while (bfsEdmondsKarp(aux, src, sink)) {
         double path_flow = INF;
 
-        // Find minimum residual capacity along the path
         for (Vertex* v = sink; v != src; v = v->getPath()->getOrig()) {
             Edge* edge = v->getPath();
             path_flow = std::min(path_flow, edge->getWeight() - edge->getFlow());
         }
 
-        // Update flows along the path and reverse flows
         for (Vertex* v = sink; v != src; v = v->getPath()->getOrig()) {
             Edge* edge = v->getPath();
             edge->setFlow(edge->getFlow() + path_flow);
 
-            // Adjust the reverse edge
             Edge* reverseEdge = edge->getReverse();
             if (reverseEdge != nullptr) {
                 reverseEdge->setFlow(reverseEdge->getFlow() - path_flow);
@@ -262,7 +258,43 @@ void WaterSupplyManager::checkSuficientFlow() {
     }
 }
 
+void WaterSupplyManager::analysisMetrics() {
+    double average_difference = 0;
+    double variance_difference = 0;
+    double current_difference;
+    double max_dif = 0;
+    std::vector<double> _differences;
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        for (Edge* e : v->getAdj()) {
+            if (!e->isSelected()) {
+                current_difference = e->getWeight()-std::abs(e->getFlow());
+                _differences.push_back(current_difference);
+                e->setSelected(true);
+                if (current_difference > max_dif) max_dif = current_difference;
+            }
+        }
+    }
+    std::cout << "A diferença máxima atual entre a capacidade e o flow de um pipe é " << max_dif << "." << std::endl;
 
+    for (double aux : _differences) {
+        average_difference += aux;
+    }
+    average_difference = average_difference / _differences.size();
+    std::cout << "A média atual da diferença entre a capacidade e o flow de cada pipe é " << average_difference << "." << std::endl;
 
+    for (double aux2 : _differences) {
+        variance_difference += std::pow(aux2 - average_difference, 2);
+    }
+    variance_difference = variance_difference / _differences.size();
+    std::cout << "A variância atual da diferença entre a capacidade e o flow de cada pipe é " << variance_difference << "." << std::endl;
 
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        for (Edge* e : v->getAdj()) {
+            e->setSelected(false);
+        }
+    }
+}
 
+void WaterSupplyManager::balanceFlow() {
+
+}
