@@ -1,7 +1,3 @@
-//
-// Created by rui on 19-03-2024.
-//
-
 #ifndef DA_PROJECT_1_PIPELINE_H
 #define DA_PROJECT_1_PIPELINE_H
 

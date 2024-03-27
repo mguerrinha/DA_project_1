@@ -1,7 +1,3 @@
-//
-// Created by rui on 19-03-2024.
-//
-
 #include "Pipeline.h"
 
 std::string Pipeline::getSourc() const {
