@@ -1,6 +1,3 @@
-//
-// Created by miguel on 18-03-2024.
-//
 #include "Interface.h"
 
 Interface::Interface() = default;
@@ -46,6 +43,11 @@ void Interface::run() {
             case 6:
                 _waterSupplyManager.balanceFlow();
                 break;
+            case 7:
+                std::cout << "Qual é o código do reservatório desejado? " << std::endl;
+                std::cin >> aux;
+                _waterSupplyManager.evaluateReservoirImpact(aux);
+                break;
             default:
                 break;
         }
@@ -60,6 +62,7 @@ int Interface::displayMainMenu() {
     std::cout << "4 --> Max Flow for a specific City" << std::endl;
     std::cout << "5 --> Analyze the current metrics of the graph" << std::endl;
     std::cout << "6 --> Balance pipes" << std::endl;
+    std::cout << "7 --> Cities affected by removing Reservoir" << std::endl;
     std::cout << "0 --> Exit" << std::endl;
     std::cout << "Choose one option: ";
     int option;

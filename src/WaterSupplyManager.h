@@ -1,7 +1,3 @@
-//
-// Created by rui on 19-03-2024.
-//
-
 #ifndef DA_PROJECT_1_WATERSUPPLYMANAGER_H
 #define DA_PROJECT_1_WATERSUPPLYMANAGER_H
 
@@ -39,6 +35,8 @@ public:
     void load_pipes(const std::string &file);
 
     Graph getWaterSupplySystem();
+
+    void evaluateReservoirImpact(const std::string& reservoirToRemove);
 
     std::unordered_map<std::string, City> &getCityMap();
 

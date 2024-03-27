@@ -1,7 +1,3 @@
-//
-// Created by rui on 19-03-2024.
-//
-
 #include "City.h"
 
 std::string City::getName() const {

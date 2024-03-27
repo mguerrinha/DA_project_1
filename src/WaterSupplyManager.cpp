@@ -1,7 +1,3 @@
-//
-// Created by rui on 19-03-2024.
-//
-
 #include "WaterSupplyManager.h"
 
 WaterSupplyManager::WaterSupplyManager() = default;
@@ -352,4 +348,23 @@ void WaterSupplyManager::balanceFlow() {
             e->setSelected(false);
         }
     }
+}
+
+void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToRemove){
+    std::vector<std::pair<std::string,double>> removedEdges;
+    Vertex* reservoir = _waterSupplySystem.findVertex(reservoirToRemove);
+    if (reservoir == nullptr || reservoir->getInfo()[0] != 'R'){
+        std::cout << "O código fornecido: " << reservoirToRemove << ", não é válido." << std::endl;
+        return;
+    }
+    for (Edge* edge : reservoir->getAdj()) {
+        removedEdges.push_back(std::make_pair(edge->getDest()->getInfo(), edge->getWeight()));
+    }
+
+    _waterSupplySystem.removeVertex(reservoirToRemove);
+    checkSuficientFlow();
+    _waterSupplySystem.addVertex(reservoirToRemove);
+
+    Vertex* i = _waterSupplySystem.findVertex(reservoirToRemove);
+    for (std::pair<std::string,double> j : removedEdges) _waterSupplySystem.addEdge(i->getInfo(), j.first, j.second);
 }
