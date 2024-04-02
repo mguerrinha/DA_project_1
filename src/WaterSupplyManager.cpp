@@ -149,8 +149,8 @@ bool WaterSupplyManager::bfsEdmondsKarp(Graph* g, Vertex* source, Vertex* sink) 
     return false;
 }
 
-void WaterSupplyManager::edmondsKarp(const std::string &source, const std::string &target) {
-    Graph* aux = getGraphCopy(&_waterSupplySystem);
+void WaterSupplyManager::edmondsKarp(Graph* graph, const std::string &source, const std::string &target) {
+    Graph* aux = getGraphCopy(graph);
     Vertex* src = aux->findVertex(source);
     Vertex* sink = aux->findVertex(target);
     double max_flow = 0;
@@ -176,7 +176,7 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
         max_flow += path_flow;
     }
 
-    for(Vertex* vertex: _waterSupplySystem.getVertexSet()) {
+    for(Vertex* vertex: graph->getVertexSet()) {
         Vertex* auxVertex = aux->findVertex(vertex->getInfo());
         for(Edge* edge : vertex->getAdj()) {
             for(Edge* auxEdge : auxVertex->getAdj()) {
@@ -188,43 +188,45 @@ void WaterSupplyManager::edmondsKarp(const std::string &source, const std::strin
     }
 }
 
-void WaterSupplyManager::maxFlowEachCity() {
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *auxFlow) {
+    for (Vertex* vertex : graph->getVertexSet()) {
         for (Edge* edge : vertex->getAdj()) {
             edge->setFlow(0);
         }
     }
-    _waterSupplySystem.addVertex("source");
-    _waterSupplySystem.addVertex("target");
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+    graph->addVertex("source");
+    graph->addVertex("target");
+    for (Vertex* vertex : graph->getVertexSet()) {
         if (vertex->getInfo()[0] == 'R') {
             Reservoir reservoir = _reservoirMap.at(vertex->getInfo());
-            _waterSupplySystem.addEdge("source", vertex->getInfo(), reservoir.getMaxDelivery());
+            graph->addEdge("source", vertex->getInfo(), reservoir.getMaxDelivery());
         }
         else if (vertex->getInfo()[0] == 'C') {
             City city = _cityMap.at(vertex->getInfo());
-            _waterSupplySystem.addEdge(vertex->getInfo(), "target", city.getDemand());
+            graph->addEdge(vertex->getInfo(), "target", city.getDemand());
         }
     }
-    edmondsKarp("source", "target");
+    edmondsKarp(graph, "source", "target");
 
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+    for (Vertex* vertex : graph->getVertexSet()) {
         double maxFlow = 0;
         if (vertex->getInfo() == "target") {
             for (Edge* edge : vertex->getIncoming()) {
                 maxFlow += edge->getFlow();
             }
+            *auxFlow = maxFlow;
             std::cout << vertex->getInfo() << " " << maxFlow << std::endl;
 
         }
     }
-    _waterSupplySystem.removeVertex("source");
-    _waterSupplySystem.removeVertex("target");
+    graph->removeVertex("source");
+    graph->removeVertex("target");
 }
 
-void WaterSupplyManager::maxFlowSpecificCity(const std::string &city) {
-    maxFlowEachCity();
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &city) {
+    double max_flow = 0;
+    maxFlowEachCity(graph, &max_flow);
+    for (Vertex* vertex : graph->getVertexSet()) {
         if (vertex->getInfo() == city) {
             double maxFlow = 0;
             for (Edge* edge : vertex->getIncoming()) {
@@ -236,10 +238,11 @@ void WaterSupplyManager::maxFlowSpecificCity(const std::string &city) {
 
 }
 
-void WaterSupplyManager::checkSuficientFlow() {
-    maxFlowEachCity();
+void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
+    double max_flow = 0;
+    maxFlowEachCity(graph, &max_flow);
     std::cout << "Cities without enough water:" << std::endl;
-    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+    for (Vertex* vertex : graph->getVertexSet()) {
         if (vertex->getInfo()[0] == 'C') {
             double maxFlow = 0;
             for (Edge* edge : vertex->getIncoming()) {
@@ -358,13 +361,60 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
         return;
     }
     for (Edge* edge : reservoir->getAdj()) {
-        removedEdges.push_back(std::make_pair(edge->getDest()->getInfo(), edge->getWeight()));
+        removedEdges.emplace_back(edge->getDest()->getInfo(), edge->getWeight());
     }
 
     _waterSupplySystem.removeVertex(reservoirToRemove);
-    checkSuficientFlow();
+    checkSuficientFlow(&_waterSupplySystem);
     _waterSupplySystem.addVertex(reservoirToRemove);
 
     Vertex* i = _waterSupplySystem.findVertex(reservoirToRemove);
     for (std::pair<std::string,double> j : removedEdges) _waterSupplySystem.addEdge(i->getInfo(), j.first, j.second);
+}
+
+void WaterSupplyManager::periodic_maintenance_pumping_stations() {
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        if (v->getInfo()[0] == 'P') {
+            Graph* aux = getGraphCopy(&_waterSupplySystem);
+            aux->removeVertex(v->getInfo());
+            double max_flow = 0;
+            maxFlowEachCity(aux, &max_flow);
+            if (max_flow == 24163) {
+                std::cout << v->getInfo() << std::endl;
+            }
+        }
+    }
+
+    std::cout << "Todas as pumping stations anteriores, não influencima o flow geral da network." << std::endl;
+
+
+
+    /*
+    std::vector<Vertex*> indiferentStations;
+    bool flag = false;
+    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
+        if (v->getInfo()[0] == 'P') {
+            for (Edge *e: v->getAdj()) {
+                if (e->getFlow() != 0) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                indiferentStations.push_back(v);
+            }
+            flag = false;
+        }
+    }
+
+    if (indiferentStations.empty()) {
+        std::cout << "Não existem pumping stations que possam ser desativadas temporariamente sem afetar o flow atual da network." << std::endl;
+    }
+    else {
+        for (Vertex* v : indiferentStations) {
+            std::cout << v->getInfo() << std::endl;
+        }
+        std::cout << "Existem pumping stations que possam ser desativadas temporariamente sem afetar o flow atual da network." << std::endl;
+    }
+    */
 }
