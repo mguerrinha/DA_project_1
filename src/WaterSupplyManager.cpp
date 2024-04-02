@@ -370,9 +370,12 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
     for (std::pair<std::string,double> j : removedEdges) _waterSupplySystem.addEdge(i->getInfo(), j.first, j.second);
 }
 
-void WaterSupplyManager::periodic_maintenance_pumping_stations() {
+void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funciona para a large dataset por estar a comparar valores específicos
     std::vector<std::pair<std::string, double>> flowBefore;
     std::vector<std::pair<std::string, double>> flowAfter;
+    std::vector<std::pair<std::string, double>> flowRatio;
+    double not_used;
+    maxFlowEachCity(&_waterSupplySystem, &not_used);
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'C') {
             double cityFlow = 0;
@@ -382,7 +385,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             flowBefore.emplace_back(vertex->getInfo(), cityFlow);
         }
     }
-
+    int count_removable_stations = 0;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         if (v->getInfo()[0] == 'P') {
             Graph* aux = getGraphCopy(&_waterSupplySystem);
@@ -391,11 +394,16 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             maxFlowEachCity(aux, &max_flow);
             if (max_flow == 24163) {
                 std::cout << v->getInfo() << std::endl;
+                count_removable_stations++;
             }
         }
     }
-
-    std::cout << "Todas as pumping stations acima podem ser desativadas temporariamente, uma vez que não alteram o flow geral da network." << std::endl;
+    if (count_removable_stations > 0) {
+        std::cout << "Existem " << count_removable_stations << " pumping stations que podem ser desativadas temporariamente sem afetar o max flow da network." << std::endl;
+    }
+    else {
+        std::cout << "Não existem pumping stations que não afetem o maw flow da network." << std::endl;
+    }
     char in_aux;
     std::cout << "Deseja ver as cidades mais afetadas se desativarmos uma determinada pumping station? (y/n) ";
     std::cin >> in_aux;
@@ -404,14 +412,14 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     }
     else if (in_aux == 'y') {
         std::string in_aux2;
-        std::cout << "Qual é o código da cidade desejada? " << std::endl;
+        std::cout << "Qual é o código da pumping station desejada? ";
         std::cin >> in_aux2;
         Graph* aux2 = getGraphCopy(&_waterSupplySystem);
         aux2->removeVertex(in_aux2);
         double max_flow = 0;
         maxFlowEachCity(aux2, &max_flow);
         if (max_flow == 24163) {
-            std::cout << "Esta pumping station não afeta o max flow geral." << std::endl;
+            std::cout << "Esta pumping station não afeta o flow de nenhuma city." << std::endl;
             return;
         }
         else {
@@ -423,6 +431,33 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
                     }
                     flowAfter.emplace_back(vertex->getInfo(), cityFlow);
                 }
+            }
+            for (auto pair1: flowBefore) {
+                for (auto pair2: flowAfter) {
+                    if (pair1.first == pair2.first) {
+                        double ratio = pair2.second / pair1.second;
+                        flowRatio.emplace_back(pair1.first, ratio);
+                    }
+                }
+            }
+            std::sort(flowRatio.begin(), flowRatio.end(), [](const auto& a, const auto& b) {
+                return a.first < b.first;
+            });
+            /*
+            int n;
+            std::cout << "Qual a n-ésima cidade mais afetada que deseja obter? ";
+            std::cin >> n;
+
+            for (int i = 0; i < flowRatio.size(); i++) {
+                if ( (i+1) == n) {
+                    City city = _cityMap.at(flowRatio[i].first);
+                    std::cout << "A cidade de " << city.getName() << " teve um decréscimo de " << std::round((1 - flowRatio[i].second) * 10000) / 100
+                    << "% no seu total incoming flow." << std::endl;
+                }
+            }
+             */
+            for (auto pair: flowAfter) {
+                std::cout <<pair.second << " "<< pair.first << std::endl;
             }
             return;
         }
