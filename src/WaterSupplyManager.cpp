@@ -234,7 +234,6 @@ void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &ci
             std::cout << vertex->getInfo() << " | " << city.getName() << " <--> " << maxFlow << "/" << city.getDemand() << std::endl;
         }
     }
-
 }
 
 void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
@@ -372,6 +371,18 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
 }
 
 void WaterSupplyManager::periodic_maintenance_pumping_stations() {
+    std::vector<std::pair<std::string, double>> flowBefore;
+    std::vector<std::pair<std::string, double>> flowAfter;
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo()[0] == 'C') {
+            double cityFlow = 0;
+            for (Edge* edge : vertex->getIncoming()) {
+                cityFlow += edge->getFlow();
+            }
+            flowBefore.emplace_back(vertex->getInfo(), cityFlow);
+        }
+    }
+
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         if (v->getInfo()[0] == 'P') {
             Graph* aux = getGraphCopy(&_waterSupplySystem);
@@ -404,6 +415,15 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             return;
         }
         else {
+            for (Vertex* vertex : aux2->getVertexSet()) {
+                if (vertex->getInfo()[0] == 'C') {
+                    double cityFlow = 0;
+                    for (Edge* edge : vertex->getIncoming()) {
+                        cityFlow += edge->getFlow();
+                    }
+                    flowAfter.emplace_back(vertex->getInfo(), cityFlow);
+                }
+            }
             return;
         }
     }
