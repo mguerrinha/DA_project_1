@@ -9,7 +9,7 @@ void Interface::run() {
     bool running = true;
     std::string aux;
 
-    std::cout << "Welcome to our system of water supply management";
+    std::cout << "Welcome to our system of water supply management" << std::endl;
     while (running) {
         int choice  = displayMainMenu();
         switch (choice) {
@@ -32,8 +32,9 @@ void Interface::run() {
                  graph = _waterSupplyManager.getWaterSupplySystem();
                 break;
             case 3:
-                double temp;
-                _waterSupplyManager.maxFlowEachCity(&graph, &temp);
+                double max_flow;
+                _waterSupplyManager.maxFlowEachCity(&graph, &max_flow);
+                std::cout << "O max flow atual é " << max_flow << "." << std::endl;
                 break;
             case 4:
                 std::cout << "Qual é o código da cidade desejada? " << std::endl;
@@ -61,7 +62,7 @@ void Interface::run() {
 }
 
 int Interface::displayMainMenu() {
-    std::cout << "---------------- Water Supply Management ----------------" << std::endl;
+    std::cout << "-----------Water Supply Management -------------" << std::endl;
     std::cout << "1 --> Load small dataset" << std::endl;
     std::cout << "2 --> Load large dataset" << std::endl;
     std::cout << "3 --> General Max Flow" << std::endl;

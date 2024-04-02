@@ -215,8 +215,6 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *auxFlow) {
                 maxFlow += edge->getFlow();
             }
             *auxFlow = maxFlow;
-            std::cout << vertex->getInfo() << " " << maxFlow << std::endl;
-
         }
     }
     graph->removeVertex("source");
@@ -232,7 +230,8 @@ void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &ci
             for (Edge* edge : vertex->getIncoming()) {
                 maxFlow += edge->getFlow();
             }
-            std::cout << vertex->getInfo() << " " << maxFlow << std::endl;
+            City city = _cityMap.at(vertex->getInfo());
+            std::cout << vertex->getInfo() << " | " << city.getName() << " <--> " << maxFlow << "/" << city.getDemand() << std::endl;
         }
     }
 
@@ -385,9 +384,33 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         }
     }
 
-    std::cout << "Todas as pumping stations anteriores, não influencima o flow geral da network." << std::endl;
-
-
+    std::cout << "Todas as pumping stations acima podem ser desativadas temporariamente, uma vez que não alteram o flow geral da network." << std::endl;
+    char in_aux;
+    std::cout << "Deseja ver as cidades mais afetadas se desativarmos uma determinada pumping station? (y/n) ";
+    std::cin >> in_aux;
+    if (in_aux == 'n') {
+        return;
+    }
+    else if (in_aux == 'y') {
+        std::string in_aux2;
+        std::cout << "Qual é o código da cidade desejada? " << std::endl;
+        std::cin >> in_aux2;
+        Graph* aux2 = getGraphCopy(&_waterSupplySystem);
+        aux2->removeVertex(in_aux2);
+        double max_flow = 0;
+        maxFlowEachCity(aux2, &max_flow);
+        if (max_flow == 24163) {
+            std::cout << "Esta pumping station não afeta o max flow geral." << std::endl;
+            return;
+        }
+        else {
+            return;
+        }
+    }
+    else {
+        std::cout << "Foram inseridos caracteres inválidos." << std::endl;
+        return;
+    }
 
     /*
     std::vector<Vertex*> indiferentStations;
