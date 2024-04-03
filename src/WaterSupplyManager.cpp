@@ -370,12 +370,12 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
     for (std::pair<std::string,double> j : removedEdges) _waterSupplySystem.addEdge(i->getInfo(), j.first, j.second);
 }
 
-void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funciona para a large dataset por estar a comparar valores específicos
+void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     std::vector<std::pair<std::string, double>> flowBefore;
     std::vector<std::pair<std::string, double>> flowAfter;
     std::vector<std::pair<std::string, double>> flowRatio;
-    double not_used;
-    maxFlowEachCity(&_waterSupplySystem, &not_used);
+    double total_max_flow;
+    maxFlowEachCity(&_waterSupplySystem, &total_max_flow);
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'C') {
             double cityFlow = 0;
@@ -390,9 +390,9 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funcio
         if (v->getInfo()[0] == 'P') {
             Graph* aux = getGraphCopy(&_waterSupplySystem);
             aux->removeVertex(v->getInfo());
-            double max_flow = 0;
-            maxFlowEachCity(aux, &max_flow);
-            if (max_flow == 24163) {
+            double max_flow_specific1 = 0;
+            maxFlowEachCity(aux, &max_flow_specific1);
+            if (max_flow_specific1 == total_max_flow) {
                 std::cout << v->getInfo() << std::endl;
                 count_removable_stations++;
             }
@@ -416,9 +416,9 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funcio
         std::cin >> in_aux2;
         Graph* aux2 = getGraphCopy(&_waterSupplySystem);
         aux2->removeVertex(in_aux2);
-        double max_flow = 0;
-        maxFlowEachCity(aux2, &max_flow);
-        if (max_flow == 24163) {
+        double max_flow_specific2 = 0;
+        maxFlowEachCity(aux2, &max_flow_specific2);
+        if (max_flow_specific2 == total_max_flow) {
             std::cout << "Esta pumping station não afeta o flow de nenhuma city." << std::endl;
             return;
         }
@@ -432,8 +432,8 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funcio
                     flowAfter.emplace_back(vertex->getInfo(), cityFlow);
                 }
             }
-            for (auto pair1: flowBefore) {
-                for (auto pair2: flowAfter) {
+            for (const auto& pair1: flowBefore) {
+                for (const auto& pair2: flowAfter) {
                     if (pair1.first == pair2.first) {
                         double ratio = pair2.second / pair1.second;
                         flowRatio.emplace_back(pair1.first, ratio);
@@ -456,7 +456,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() { // só funcio
                 }
             }
              */
-            for (auto pair: flowAfter) {
+            for (const auto& pair: flowAfter) {
                 std::cout <<pair.second << " "<< pair.first << std::endl;
             }
             return;
