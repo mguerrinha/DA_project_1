@@ -8,6 +8,7 @@ void Interface::run() {
     Graph graph;
     bool running = true;
     std::string aux;
+    std::string src, dest;
 
     std::cout << "Welcome to our system of water supply management" << std::endl;
     while (running) {
@@ -37,7 +38,7 @@ void Interface::run() {
                 std::cout << "O max flow atual é " << max_flow << "." << std::endl;
                 break;
             case 4:
-                std::cout << "Qual é o código da cidade desejada? " << std::endl;
+                std::cout << "Qual é o código da cidade desejada? ";
                 std::cin >> aux;
                 _waterSupplyManager.maxFlowSpecificCity(&graph, aux);
                 break;
@@ -55,6 +56,13 @@ void Interface::run() {
             case 8:
                 _waterSupplyManager.periodic_maintenance_pumping_stations();
                 break;
+            case 9:
+                std::cout << "Qual é a source da pipeline desejada? ";
+                std::cin >> src;
+                std::cout << "Qual é o destiny da pipeline desejada? ";
+                std::cin >> dest;
+                _waterSupplyManager.pipeline_failures(src, dest);
+                break;
             default:
                 break;
         }
@@ -71,6 +79,7 @@ int Interface::displayMainMenu() {
     std::cout << "6 --> Balance pipes" << std::endl;
     std::cout << "7 --> Cities affected by removing Reservoir" << std::endl;
     std::cout << "8 --> Not needed pumping stations." << std::endl;
+    std::cout << "9 ->> Pipeline failures and cities affected by it." << std::endl;
     std::cout << "0 --> Exit" << std::endl;
     std::cout << "Choose one option: ";
     int option;

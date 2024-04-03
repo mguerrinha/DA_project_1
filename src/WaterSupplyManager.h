@@ -102,7 +102,9 @@ public:
      * @param graph Grafo cujas informações irão ser copiadas
      * @return Cópia do grafo pretendido
      */
-    Graph* getGraphCopy(Graph* graph);
+    Graph* copyGraphEdmonds(Graph* graph);
+
+    Graph* copyGraphAux(Graph* graph);
 
     /**
      * @brief Realiza o algoritmo BFS para encontrar possíveis augmenting paths de uma source até um target
@@ -153,6 +155,8 @@ public:
     void balanceFlow();
 
     void periodic_maintenance_pumping_stations();
+
+    void pipeline_failures(const std::string& src, const std::string& dest);
 };
 
 

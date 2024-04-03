@@ -101,7 +101,7 @@ Graph WaterSupplyManager::getWaterSupplySystem() {
 
 
 
-Graph* WaterSupplyManager::getGraphCopy(Graph *graph) {
+Graph* WaterSupplyManager::copyGraphEdmonds(Graph *graph) {
     auto* newGraph = new Graph();
 
     for (auto v : graph->getVertexSet()) {
@@ -116,6 +116,24 @@ Graph* WaterSupplyManager::getGraphCopy(Graph *graph) {
         }
     }
 
+    return newGraph;
+}
+
+Graph* WaterSupplyManager::copyGraphAux(Graph *graph) {
+    auto* newGraph = new Graph();
+    for (auto v : graph->getVertexSet()) {
+        newGraph->addVertex(v->getInfo());
+    }
+    for (Vertex* vertex : graph->getVertexSet()) {
+        for (Edge* edge : vertex->getAdj()) {
+            newGraph->addEdge(edge->getOrig()->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
+        }
+    }
+    for (auto v: newGraph->getVertexSet()) {
+        for (Edge* e: v->getAdj()) {
+            e->setFlow(0);
+        }
+    }
     return newGraph;
 }
 
@@ -150,7 +168,7 @@ bool WaterSupplyManager::bfsEdmondsKarp(Graph* g, Vertex* source, Vertex* sink) 
 }
 
 void WaterSupplyManager::edmondsKarp(Graph* graph, const std::string &source, const std::string &target) {
-    Graph* aux = getGraphCopy(graph);
+    Graph* aux = copyGraphEdmonds(graph);
     Vertex* src = aux->findVertex(source);
     Vertex* sink = aux->findVertex(target);
     double max_flow = 0;
@@ -388,7 +406,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     int count_removable_stations = 0;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         if (v->getInfo()[0] == 'P') {
-            Graph* aux = getGraphCopy(&_waterSupplySystem);
+            Graph* aux = copyGraphAux(&_waterSupplySystem);
             aux->removeVertex(v->getInfo());
             double max_flow_specific1 = 0;
             maxFlowEachCity(aux, &max_flow_specific1);
@@ -414,10 +432,11 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         std::string in_aux2;
         std::cout << "Qual é o código da pumping station desejada? ";
         std::cin >> in_aux2;
-        Graph* aux2 = getGraphCopy(&_waterSupplySystem);
+        Graph* aux2 = copyGraphAux(&_waterSupplySystem);
         aux2->removeVertex(in_aux2);
         double max_flow_specific2 = 0;
         maxFlowEachCity(aux2, &max_flow_specific2);
+
         if (max_flow_specific2 == total_max_flow) {
             std::cout << "Esta pumping station não afeta o flow de nenhuma city." << std::endl;
             return;
@@ -441,23 +460,18 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
                 }
             }
             std::sort(flowRatio.begin(), flowRatio.end(), [](const auto& a, const auto& b) {
-                return a.first < b.first;
+                return a.second < b.second;
             });
-            /*
+
             int n;
             std::cout << "Qual a n-ésima cidade mais afetada que deseja obter? ";
             std::cin >> n;
-
             for (int i = 0; i < flowRatio.size(); i++) {
                 if ( (i+1) == n) {
                     City city = _cityMap.at(flowRatio[i].first);
                     std::cout << "A cidade de " << city.getName() << " teve um decréscimo de " << std::round((1 - flowRatio[i].second) * 10000) / 100
                     << "% no seu total incoming flow." << std::endl;
                 }
-            }
-             */
-            for (const auto& pair: flowAfter) {
-                std::cout <<pair.second << " "<< pair.first << std::endl;
             }
             return;
         }
@@ -495,4 +509,53 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         std::cout << "Existem pumping stations que possam ser desativadas temporariamente sem afetar o flow atual da network." << std::endl;
     }
     */
+}
+
+void WaterSupplyManager::pipeline_failures(const std::string& src, const std::string& dest) {
+    std::vector<std::pair<std::string, double>> flowCitiesBefore;
+    std::vector<std::pair<std::string, double>> flowCitiesAfter;
+    double aux_max_flow, original_max_flow;
+
+    maxFlowEachCity(&_waterSupplySystem, &original_max_flow);
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo()[0] == 'C') {
+            double cityFlow = 0;
+            for (Edge* edge : vertex->getIncoming()) {
+                cityFlow += edge->getFlow();
+            }
+            flowCitiesBefore.emplace_back(vertex->getInfo(), cityFlow);
+        }
+    }
+
+    Graph* aux = copyGraphAux(&_waterSupplySystem);
+    aux->removeEdge(src, dest);
+    maxFlowEachCity(aux, &aux_max_flow);
+    for (Vertex* vertex : aux->getVertexSet()) {
+        if (vertex->getInfo()[0] == 'C') {
+            double cityFlow = 0;
+            for (Edge* edge : vertex->getIncoming()) {
+                cityFlow += edge->getFlow();
+            }
+            flowCitiesAfter.emplace_back(vertex->getInfo(), cityFlow);
+        }
+    }
+
+    for (const auto& pair1: flowCitiesBefore) {
+        for (const auto& pair2: flowCitiesAfter) {
+            if (pair1.first == pair2.first) {
+                double deficit = pair1.second - pair2.second;
+                if (deficit == 0) {
+                    continue;
+                }
+                else if (deficit > 0){
+                    City city = _cityMap.at(_waterSupplySystem.findVertex(pair1.first)->getInfo());
+                    std::cout << city.getName() << " | " << pair1.first << " --> Water Supply in Deficit (in losses): " << deficit << std::endl;
+                }
+                else {
+                    City city = _cityMap.at(_waterSupplySystem.findVertex(pair1.first)->getInfo());
+                    std::cout << city.getName() << " | " << pair1.first << " --> Water Supply in Deficit (in gains): " << -deficit << std::endl;
+                }
+            }
+        }
+    }
 }
