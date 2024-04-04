@@ -249,13 +249,14 @@ void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &ci
                 maxFlow += edge->getFlow();
             }
             City city = _cityMap.at(vertex->getInfo());
-            std::cout << vertex->getInfo() << " | " << city.getName() << " <--> " << maxFlow << "/" << city.getDemand() << std::endl;
+            std::cout << vertex->getInfo() << ": " << city.getName() << " <--> " << maxFlow << "/" << city.getDemand() << std::endl;
         }
     }
 }
 
 void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
     double max_flow = 0;
+    bool cityFound = false;
     maxFlowEachCity(graph, &max_flow);
     std::cout << "Cities without enough water:" << std::endl;
     for (Vertex* vertex : graph->getVertexSet()) {
@@ -267,10 +268,13 @@ void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
             City city = _cityMap.at(vertex->getInfo());
             if (maxFlow < city.getDemand()) {
                 double dif = city.getDemand() - maxFlow;
-                std::cout << vertex->getInfo() << " as a deficit of: " << dif << std::endl;
+                City city = _cityMap.at(vertex->getInfo());
+                std::cout << vertex->getInfo() << ": " << city.getName() << " as a deficit of: " << dif << " <--> " << maxFlow << "/" << city.getDemand() << std::endl;
+                cityFound = true;
             }
         }
     }
+    if (!cityFound) std::cout << "No cities were found with water deficit level." << std::endl;
 }
 
 void WaterSupplyManager::analysisMetrics() {
