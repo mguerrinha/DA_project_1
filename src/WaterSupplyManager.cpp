@@ -482,6 +482,8 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     }
 
     /*
+    // Implementação alternativa
+
     std::vector<Vertex*> indiferentStations;
     bool flag = false;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
