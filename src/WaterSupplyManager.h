@@ -72,7 +72,7 @@ public:
     Graph getWaterSupplySystem();
 
     /**
-     * @brief TO DO!
+     * @brief Avalia o impacto que teria a remoção de um water reservoir
      * Complexidade: O(E + (VE + (V * (E^2)) + 3V) + N)
      * @param reservoirToRemove Reservatório a remover
      */
@@ -97,13 +97,19 @@ public:
     std::unordered_map<std::string, Reservoir> &getReservoirMap();
 
     /**
-     * @brief Copia as informações de um grafo para outro
+     * @brief Método auxiliar ao Edmonds Karp que cria o residual graph com as respectivas residual edges
      * Complexidade : O(V + VE)
      * @param graph Grafo cujas informações irão ser copiadas
-     * @return Cópia do grafo pretendido
+     * @return Residual graph do grafo pretendido
      */
     Graph* copyGraphEdmonds(Graph* graph);
 
+    /**
+     * @brief Copia as informações de um grafo para outro
+     * Complexidade: O(V + 2VE)
+     * @param graph Grafo cujas informações irão ser copiadas
+     * @return Cópia do grafo pretendido
+     */
     Graph* copyGraphAux(Graph* graph);
 
     /**
@@ -150,14 +156,24 @@ public:
     void analysisMetrics();
 
     /**
-     * @brief TO DO!
+     * @brief Função que balanceia o flow da network de forma a baixar a média, variância ou diferença máxima entre a capacidade e o flow das pipelines
+     * Complexidade: O(...)
      */
     void balanceFlow();
 
+    /**
+     * @brief Analisa as cidades mais afetadas em caso de uma pumping station ser removida
+     * Complexidade: O((2+V)(VE + (V * (E^2)) + 2V) + 2VE + N^2 + N)
+     */
     void periodic_maintenance_pumping_stations();
 
+    /**
+     * @brief Analisa as cidades mais afetadas em caso de uma pipeline ser removida
+     * Complexidade:  O(2(VE + (V * (E^2)) + 2V) + 2VE + N^2)
+     * @param src Source da pipeline a ser removida
+     * @param dest Destiny da pipeline a ser removida
+     */
     void pipeline_failures(const std::string& src, const std::string& dest);
 };
-
 
 #endif //DA_PROJECT_1_WATERSUPPLYMANAGER_H
