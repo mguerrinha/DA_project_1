@@ -102,7 +102,9 @@ public:
      * @param graph Grafo cujas informações irão ser copiadas
      * @return Cópia do grafo pretendido
      */
-    Graph* getGraphCopy(Graph* graph);
+    Graph* copyGraphEdmonds(Graph* graph);
+
+    Graph* copyGraphAux(Graph* graph);
 
     /**
      * @brief Realiza o algoritmo BFS para encontrar possíveis augmenting paths de uma source até um target
@@ -120,26 +122,26 @@ public:
      * @param source Vertex de origem
      * @param target Vertex alvo
      */
-    void edmondsKarp(const std::string &source, const std::string &target);
+    void edmondsKarp(Graph* graph, const std::string &source, const std::string &target);
 
     /**
      * @brief Verifica o max flow total do sistema
      * Complexidade: O(VE + (V * (E^2)) + 2V)
      */
-    void maxFlowEachCity();
+    void maxFlowEachCity(Graph* graph, double *auxFlow);
 
     /**
      * @brief Verifica o max flow que atinge uma certa cidade
      * Complexidade: O(VE + (V * (E^2)) + 3V)
      * @param city
      */
-    void maxFlowSpecificCity(const std::string &city);
+    void maxFlowSpecificCity(Graph* graph, const std::string &city);
 
     /**
      * @brief Verifica as cidades cujo que não receberam as quantidades de água desejadas, tendo em conta a sua demanda
      * Complexidade: O(VE + (V * (E^2)) + 3V)
      */
-    void checkSuficientFlow();
+    void checkSuficientFlow(Graph* graph);
 
     /**
      * @brief Analisa a média, variância e diferença máxima entre a capacidade e o flow que percorrem as pipelines
@@ -151,6 +153,10 @@ public:
      * @brief TO DO!
      */
     void balanceFlow();
+
+    void periodic_maintenance_pumping_stations();
+
+    void pipeline_failures(const std::string& src, const std::string& dest);
 };
 
 
