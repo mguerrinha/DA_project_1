@@ -315,6 +315,7 @@ void WaterSupplyManager::analysisMetrics() {
 }
 
 void WaterSupplyManager::balanceFlow() {
+    /*
     std::vector<std::pair<double, Edge*>> auxEdges;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         for (Edge* e : v->getAdj()) {
@@ -371,6 +372,9 @@ void WaterSupplyManager::balanceFlow() {
             e->setSelected(false);
         }
     }
+    */
+
+
 }
 
 void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToRemove){

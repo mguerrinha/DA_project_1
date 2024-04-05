@@ -26,5 +26,10 @@ private:
      * @return Número correspondente à ação que o utilizador pretende realizar
      */
     static int displayMainMenu();
+
+    static int displayLoadOptions();
+
+    static void mainMenuOptions(Graph *graph);
+
 };
 #endif //DA_PROJECT_1_INTERFACE_H
