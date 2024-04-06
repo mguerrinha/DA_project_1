@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "WaterSupplyManager.h"
 
 WaterSupplyManager::WaterSupplyManager() = default;
@@ -163,7 +164,6 @@ bool WaterSupplyManager::bfsEdmondsKarp(Graph* g, Vertex* source, Vertex* sink) 
             }
         }
     }
-
     return false;
 }
 
@@ -206,7 +206,7 @@ void WaterSupplyManager::edmondsKarp(Graph* graph, const std::string &source, co
     }
 }
 
-void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *auxFlow) {
+void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *maxFlow) {
     for (Vertex* vertex : graph->getVertexSet()) {
         for (Edge* edge : vertex->getAdj()) {
             edge->setFlow(0);
@@ -226,15 +226,11 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *auxFlow) {
     }
     edmondsKarp(graph, "source", "target");
 
-    for (Vertex* vertex : graph->getVertexSet()) {
-        double maxFlow = 0;
-        if (vertex->getInfo() == "target") {
-            for (Edge* edge : vertex->getIncoming()) {
-                maxFlow += edge->getFlow();
-            }
-            *auxFlow = maxFlow;
-        }
+    Vertex* target = graph->findVertex("target");
+    for (Edge* edge : target->getIncoming()) {
+        *maxFlow += edge->getFlow();
     }
+
     graph->removeVertex("source");
     graph->removeVertex("target");
 }
@@ -278,16 +274,24 @@ void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
 }
 
 void WaterSupplyManager::analysisMetrics() {
+    double maxFlow = 0;
+    maxFlowEachCity(&_waterSupplySystem, &maxFlow);
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        for (Edge* edge : vertex->getAdj()) {
+            edge->setSelected(false);
+        }
+    }
     double average_difference = 0;
     double variance_difference = 0;
     double current_difference;
     double max_dif = 0;
-    std::vector<double> _differences;
+    std::vector<double> differences;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         for (Edge* e : v->getAdj()) {
             if (!e->isSelected()) {
                 current_difference = e->getWeight()-std::abs(e->getFlow());
-                _differences.push_back(current_difference);
+                differences.push_back(current_difference);
+                average_difference += current_difference;
                 e->setSelected(true);
                 if (current_difference > max_dif) max_dif = current_difference;
             }
@@ -295,16 +299,13 @@ void WaterSupplyManager::analysisMetrics() {
     }
     std::cout << "A diferença máxima atual entre a capacidade e o flow de um pipe é " << max_dif << "." << std::endl;
 
-    for (double aux : _differences) {
-        average_difference += aux;
-    }
-    average_difference = average_difference / _differences.size();
+    average_difference /= differences.size();
     std::cout << "A média atual da diferença entre a capacidade e o flow de cada pipe é " << average_difference << "." << std::endl;
 
-    for (double aux2 : _differences) {
+    for (double aux2 : differences) {
         variance_difference += std::pow(aux2 - average_difference, 2);
     }
-    variance_difference = variance_difference / _differences.size();
+    variance_difference /= differences.size();
     std::cout << "A variância atual da diferença entre a capacidade e o flow de cada pipe é " << variance_difference << "." << std::endl;
 
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
@@ -488,37 +489,6 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         std::cout << "Foram inseridos caracteres inválidos." << std::endl;
         return;
     }
-
-    /*
-    // Implementação alternativa
-
-    std::vector<Vertex*> indiferentStations;
-    bool flag = false;
-    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
-        if (v->getInfo()[0] == 'P') {
-            for (Edge *e: v->getAdj()) {
-                if (e->getFlow() != 0) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                indiferentStations.push_back(v);
-            }
-            flag = false;
-        }
-    }
-
-    if (indiferentStations.empty()) {
-        std::cout << "Não existem pumping stations que possam ser desativadas temporariamente sem afetar o flow atual da network." << std::endl;
-    }
-    else {
-        for (Vertex* v : indiferentStations) {
-            std::cout << v->getInfo() << std::endl;
-        }
-        std::cout << "Existem pumping stations que possam ser desativadas temporariamente sem afetar o flow atual da network." << std::endl;
-    }
-    */
 }
 
 void WaterSupplyManager::pipeline_failures(const std::string& src, const std::string& dest) {

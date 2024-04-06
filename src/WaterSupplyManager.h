@@ -134,7 +134,7 @@ public:
      * @brief Verifica o max flow total do sistema
      * Complexidade: O(VE + (V * (E^2)) + 2V)
      */
-    void maxFlowEachCity(Graph* graph, double *auxFlow);
+    void maxFlowEachCity(Graph* graph, double *maxFlow);
 
     /**
      * @brief Verifica o max flow que atinge uma certa cidade
