@@ -412,7 +412,7 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
     Vertex* reservoir = _waterSupplySystem.findVertex(reservoirToRemove);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (reservoir == nullptr || reservoir->getInfo()[0] != 'R'){
-        std::cout << "The code provided: " << reservoirToRemove << "is not valid." << std::endl;
+        std::cout << "The code provided: " << reservoirToRemove << " is not valid." << std::endl;
         return;
     }
     for (Edge* edge : reservoir->getAdj()) {
