@@ -1,7 +1,3 @@
-//
-// Created by miguel on 19-03-2024.
-//
-
 #include "Edge.h"
 
 Edge::Edge(Vertex *orig, Vertex *dest, double capacity): orig(orig), dest(dest), weight(capacity) {}

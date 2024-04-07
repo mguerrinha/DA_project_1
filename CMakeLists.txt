@@ -4,9 +4,6 @@ project(DA_project_1)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(DA_project_1
-        src/data_structures/MutablePriorityQueue.h
-        src/data_structures/UFDS.cpp
-        src/data_structures/UFDS.h
         src/City.h
         src/Interface.h
         src/Interface.cpp
@@ -19,8 +16,6 @@ add_executable(DA_project_1
         src/Reservoir.cpp
         src/WaterSupplyManager.h
         src/WaterSupplyManager.cpp
-        src/Pipeline.h
-        src/Pipeline.cpp
         src/data_structures/Edge.h
         src/data_structures/Edge.cpp
         src/data_structures/Graph.cpp

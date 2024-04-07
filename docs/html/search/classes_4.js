@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mutablepriorityqueue_134',['MutablePriorityQueue',['../classMutablePriorityQueue.html',1,'']]]
+  ['reservoir_104',['Reservoir',['../classReservoir.html',1,'']]]
 ];

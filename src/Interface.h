@@ -27,8 +27,16 @@ private:
      */
     static int displayMainMenu();
 
+    /**
+     * @brief Menu que permite a escolha da dataset
+     * @return Número correspondente à dataset pretendida
+     */
     static int displayLoadOptions();
 
+    /**
+     * @brief Processa o número selecionado do menu principal
+     * @param graph Grafo a ser utilizado
+     */
     static void mainMenuOptions(Graph *graph);
 
 };

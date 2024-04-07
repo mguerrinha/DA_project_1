@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['removeedge_97',['removeEdge',['../classGraph.html#a47ba1d42782adec69094b0470ffd570e',1,'Graph::removeEdge()'],['../classVertex.html#a4d8890c92e810f8cdbc7777e45b16538',1,'Vertex::removeEdge(std::string in)']]],
-  ['removeoutgoingedges_98',['removeOutgoingEdges',['../classVertex.html#afcde6d707aff7627df7adde8d8b74a89',1,'Vertex']]],
-  ['removevertex_99',['removeVertex',['../classGraph.html#ad5b9140e6a07d71e6e057dd4fb6d841e',1,'Graph']]],
-  ['reservoir_100',['Reservoir',['../classReservoir.html',1,'Reservoir'],['../classReservoir.html#a3dfa9156652d1925f439121b1c671147',1,'Reservoir::Reservoir()']]],
-  ['reservoir_2ecpp_101',['Reservoir.cpp',['../Reservoir_8cpp.html',1,'']]],
-  ['reservoir_2eh_102',['Reservoir.h',['../Reservoir_8h.html',1,'']]],
-  ['reverse_103',['reverse',['../classEdge.html#abcadfaa8985d0d593a124d0fea39130a',1,'Edge']]],
-  ['run_104',['run',['../classInterface.html#a090a950300a463d91f8f361d3b333906',1,'Interface']]]
+  ['saveresultstofile_80',['saveResultsToFile',['../classWaterSupplyManager.html#aa25b7bde338a8ce4cdecb4b0f9843854',1,'WaterSupplyManager']]],
+  ['selected_81',['selected',['../classEdge.html#a3af6d278c4ddcb2589e1aa66e52f4efb',1,'Edge']]],
+  ['setflow_82',['setFlow',['../classEdge.html#a788cfe1f98772af4e7bbfe6310d0ccaa',1,'Edge']]],
+  ['setpath_83',['setPath',['../classVertex.html#abe4bc30005eec65e775d0cd51f456460',1,'Vertex']]],
+  ['setratio_84',['setRatio',['../classWaterSupplyManager.html#a647bf2cdbdb268a85990f38213122bad',1,'WaterSupplyManager']]],
+  ['setreverse_85',['setReverse',['../classEdge.html#a64881280015bd83702fe3b2c6234b7e5',1,'Edge']]],
+  ['setselected_86',['setSelected',['../classEdge.html#a8ab1cf2fe7fd16152d1dba3822853894',1,'Edge']]],
+  ['setvisited_87',['setVisited',['../classVertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex']]],
+  ['station_88',['Station',['../classStation.html',1,'Station'],['../classStation.html#abd04cb0b87b0121fdcce6021091c40d9',1,'Station::Station()']]],
+  ['station_2ecpp_89',['Station.cpp',['../Station_8cpp.html',1,'']]],
+  ['station_2eh_90',['Station.h',['../Station_8h.html',1,'']]]
 ];

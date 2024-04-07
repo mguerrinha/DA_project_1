@@ -1,13 +1,12 @@
 <map id="/home/rui/Documentos/Faculdade/DA/DA_project_1/src/data_structures/Graph.cpp" name="/home/rui/Documentos/Faculdade/DA/DA_project_1/src/data_structures/Graph.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="208,5,443,61"/>
-<area shape="rect" id="node2" href="$Graph_8h.html" title=" " alt="" coords="289,109,362,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,184,85,211"/>
-<area shape="rect" id="node4" title=" " alt="" coords="303,333,366,360"/>
-<area shape="rect" id="node5" title=" " alt="" coords="161,184,223,211"/>
-<area shape="rect" id="node6" title=" " alt="" coords="248,184,307,211"/>
-<area shape="rect" id="node7" title=" " alt="" coords="331,184,416,211"/>
-<area shape="rect" id="node8" href="$MutablePriorityQueue_8h.html" title=" " alt="" coords="247,259,423,285"/>
-<area shape="rect" id="node9" href="$Vertex_8h.html" title=" " alt="" coords="491,184,567,211"/>
-<area shape="rect" id="node10" href="$Edge_8h.html" title=" " alt="" coords="580,259,647,285"/>
-<area shape="rect" id="node11" title=" " alt="" coords="497,259,556,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="183,5,417,61"/>
+<area shape="rect" id="node2" href="$Graph_8h.html" title=" " alt="" coords="263,109,337,136"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,259,85,285"/>
+<area shape="rect" id="node4" title=" " alt="" coords="110,259,173,285"/>
+<area shape="rect" id="node5" title=" " alt="" coords="338,184,401,211"/>
+<area shape="rect" id="node6" title=" " alt="" coords="425,184,484,211"/>
+<area shape="rect" id="node7" title=" " alt="" coords="508,184,593,211"/>
+<area shape="rect" id="node8" href="$Vertex_8h.html" title=" " alt="" coords="186,184,262,211"/>
+<area shape="rect" id="node9" href="$Edge_8h.html" title=" " alt="" coords="280,259,347,285"/>
+<area shape="rect" id="node10" title=" " alt="" coords="197,259,256,285"/>
 </map>

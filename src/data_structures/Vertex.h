@@ -1,56 +1,55 @@
-//
-// Created by miguel on 19-03-2024.
-//
-
 #ifndef DA_PROJECT_1_VERTEX_H
 #define DA_PROJECT_1_VERTEX_H
 
 #include "Edge.h"
 #include <string>
 #include <vector>
-#include "MutablePriorityQueue.h"
+#include <iostream>
 
 class Edge;
 
 class Vertex {
 public:
     explicit Vertex(std::string in);
-    bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
+
+    bool operator<(Vertex & vertex) const;
 
     [[nodiscard]] std::string getInfo() const;
+
     [[nodiscard]] std::vector<Edge *> getAdj() const;
+
     [[nodiscard]] bool isVisited() const;
-    [[nodiscard]] bool isProcessing() const;
-    [[nodiscard]] unsigned int getIndegree() const;
-    [[nodiscard]] double getDist() const;
+
     [[nodiscard]] Edge *getPath() const;
+
     [[nodiscard]] std::vector<Edge *> getIncoming() const;
 
-    void setInfo(std::string info);
     void setVisited(bool visited);
-    void setProcesssing(bool processing);
-    void setIndegree(unsigned int indegree);
-    void setDist(double dist);
+
     void setPath(Edge *path);
+
     Edge * addEdge(Vertex *dest, double capacity);
+
     bool removeEdge(std::string in);
+
     void removeOutgoingEdges();
 
-    friend class MutablePriorityQueue<Vertex>;
 protected:
-    std::string info;                // info node
-    std::vector<Edge *> adj;  // outgoing edges
+    std::string info;
 
-    // auxiliary fields
-    bool visited = false; // used by DFS, BFS, Prim ...
-    bool processing = false; // used by isDAG (in addition to the visited attribute)
-    unsigned int indegree{}; // used by topsort
+    std::vector<Edge *> adj;
+
+    bool visited = false;
+
+    bool processing = false;
+
+    unsigned int indegree{};
+
     double dist = 0;
+
     Edge *path = nullptr;
 
-    std::vector<Edge *> incoming; // incoming edges
-
-    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+    std::vector<Edge *> incoming;
 
     void deleteEdge(Edge *edge);
 };

@@ -74,25 +74,25 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classStation.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStation.html">Station</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    std::string _id;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    std:: string _code;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    [[nodiscard]] std::string <a class="code" href="classStation.html#afc09dd8762fc66c7c030c244cc6ee388">getId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classStation.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classStation.html">Station</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::string _id;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    [[nodiscard]] std::string <a class="code" href="classStation.html#acebe4b1627bbce79ace0e3e0b655c9a9">getCode</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">   17</a></span>&#160;    <a class="code" href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">Station</a> (std::string <span class="keywordtype">id</span>, std::string code) : _id(std::move(id)), _code(std::move(code)) {};</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DA_PROJECT_1_STATION_H</span></div>
-<div class="ttc" id="aclassStation_html"><div class="ttname"><a href="classStation.html">Station</a></div><div class="ttdef"><b>Definition:</b> Station.h:6</div></div>
-<div class="ttc" id="aclassStation_html_abd04cb0b87b0121fdcce6021091c40d9"><div class="ttname"><a href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">Station::Station</a></div><div class="ttdeci">Station(std::string id, std::string code)</div><div class="ttdef"><b>Definition:</b> Station.h:17</div></div>
-<div class="ttc" id="aclassStation_html_acebe4b1627bbce79ace0e3e0b655c9a9"><div class="ttname"><a href="classStation.html#acebe4b1627bbce79ace0e3e0b655c9a9">Station::getCode</a></div><div class="ttdeci">std::string getCode() const</div><div class="ttdef"><b>Definition:</b> Station.cpp:7</div></div>
-<div class="ttc" id="aclassStation_html_afc09dd8762fc66c7c030c244cc6ee388"><div class="ttname"><a href="classStation.html#afc09dd8762fc66c7c030c244cc6ee388">Station::getId</a></div><div class="ttdeci">std::string getId() const</div><div class="ttdef"><b>Definition:</b> Station.cpp:3</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std:: string _code;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    [[nodiscard]] std::string <a class="code" href="classStation.html#afc09dd8762fc66c7c030c244cc6ee388">getId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    [[nodiscard]] std::string <a class="code" href="classStation.html#acebe4b1627bbce79ace0e3e0b655c9a9">getCode</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">   36</a></span>&#160;    <a class="code" href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">Station</a> (std::string <span class="keywordtype">id</span>, std::string code) : _id(std::move(id)), _code(std::move(code)) {};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DA_PROJECT_1_STATION_H</span></div>
+<div class="ttc" id="aclassStation_html"><div class="ttname"><a href="classStation.html">Station</a></div><div class="ttdoc">Classe que representa uma estação de bombeamento.</div><div class="ttdef"><b>Definition:</b> Station.h:10</div></div>
+<div class="ttc" id="aclassStation_html_abd04cb0b87b0121fdcce6021091c40d9"><div class="ttname"><a href="classStation.html#abd04cb0b87b0121fdcce6021091c40d9">Station::Station</a></div><div class="ttdeci">Station(std::string id, std::string code)</div><div class="ttdoc">Constructor da classe Station.</div><div class="ttdef"><b>Definition:</b> Station.h:36</div></div>
+<div class="ttc" id="aclassStation_html_acebe4b1627bbce79ace0e3e0b655c9a9"><div class="ttname"><a href="classStation.html#acebe4b1627bbce79ace0e3e0b655c9a9">Station::getCode</a></div><div class="ttdeci">std::string getCode() const</div><div class="ttdoc">Retorna o código da estação de bombeamento.</div><div class="ttdef"><b>Definition:</b> Station.cpp:7</div></div>
+<div class="ttc" id="aclassStation_html_afc09dd8762fc66c7c030c244cc6ee388"><div class="ttname"><a href="classStation.html#afc09dd8762fc66c7c030c244cc6ee388">Station::getId</a></div><div class="ttdeci">std::string getId() const</div><div class="ttdoc">Retorna o identificador único da estação de bombeamento.</div><div class="ttdef"><b>Definition:</b> Station.cpp:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
