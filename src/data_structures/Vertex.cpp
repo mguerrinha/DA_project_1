@@ -1,7 +1,3 @@
-//
-// Created by miguel on 19-03-2024.
-//
-
 #include "Vertex.h"
 
 #include <utility>
@@ -21,7 +17,7 @@ bool Vertex::removeEdge(std::string in) {
         if (dest->getInfo() == in) {
             it = adj.erase(it);
             deleteEdge(edge);
-            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+            removedEdge = true;
         }
         else {
             it++;
@@ -51,18 +47,6 @@ bool Vertex::isVisited() const {
     return this->visited;
 }
 
-bool Vertex::isProcessing() const {
-    return this->processing;
-}
-
-unsigned int Vertex::getIndegree() const {
-    return this->indegree;
-}
-
-double Vertex::getDist() const {
-    return this->dist;
-}
-
 Edge *Vertex::getPath() const {
     return this->path;
 }
@@ -71,24 +55,8 @@ std::vector<Edge *> Vertex::getIncoming() const {
     return this->incoming;
 }
 
-void Vertex::setInfo(std::string in) {
-    this->info = in;
-}
-
 void Vertex::setVisited(bool visited) {
     this->visited = visited;
-}
-
-void Vertex::setProcesssing(bool processing) {
-    this->processing = processing;
-}
-
-void Vertex::setIndegree(unsigned int indegree) {
-    this->indegree = indegree;
-}
-
-void Vertex::setDist(double dist) {
-    this->dist = dist;
 }
 
 void Vertex::setPath(Edge *path) {
@@ -105,7 +73,6 @@ Edge * Vertex::addEdge(Vertex *d, double capacity) {
 
 void Vertex::deleteEdge(Edge *edge) {
     Vertex *dest = edge->getDest();
-    // Remove the corresponding edge from the incoming list
     auto it = dest->incoming.begin();
     while (it != dest->incoming.end()) {
         if ((*it)->getOrig()->getInfo() == info) {

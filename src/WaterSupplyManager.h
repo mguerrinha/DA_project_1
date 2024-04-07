@@ -8,7 +8,6 @@
 #include <sstream>
 #include <iostream>
 #include "City.h"
-#include "Pipeline.h"
 #include "Reservoir.h"
 #include "Station.h"
 #include <cmath>

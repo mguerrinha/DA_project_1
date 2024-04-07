@@ -100,8 +100,6 @@ Graph WaterSupplyManager::getWaterSupplySystem() {
     return _waterSupplySystem;
 }
 
-
-
 Graph* WaterSupplyManager::copyGraphEdmonds(Graph *graph) {
     auto* newGraph = new Graph();
 
@@ -236,6 +234,10 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *maxFlow) {
 }
 
 void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &city) {
+    if (_cityMap.find(city) == nullptr) {
+        std::cout << "City not found." << std::endl;
+        return;
+    }
     double max_flow = 0;
     maxFlowEachCity(graph, &max_flow);
     for (Vertex* vertex : graph->getVertexSet()) {
@@ -297,16 +299,16 @@ void WaterSupplyManager::analysisMetrics() {
             }
         }
     }
-    std::cout << "A diferença máxima atual entre a capacidade e o flow de um pipe é " << max_dif << "." << std::endl;
+    std::cout << "The current maximum difference between the capacity and flow of a pipe is " << max_dif << "." << std::endl;
 
     average_difference /= differences.size();
-    std::cout << "A média atual da diferença entre a capacidade e o flow de cada pipe é " << average_difference << "." << std::endl;
+    std::cout << "The current average difference between the capacity and flow of each pipe is " << average_difference << "." << std::endl;
 
     for (double aux2 : differences) {
         variance_difference += std::pow(aux2 - average_difference, 2);
     }
     variance_difference /= differences.size();
-    std::cout << "A variância atual da diferença entre a capacidade e o flow de cada pipe é " << variance_difference << "." << std::endl;
+    std::cout << "The current variance of the difference between the capacity and flow of each pipe is " << variance_difference << "." << std::endl;
 
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         for (Edge* e : v->getAdj()) {
@@ -382,7 +384,7 @@ void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToR
     std::vector<std::pair<std::string,double>> removedEdges;
     Vertex* reservoir = _waterSupplySystem.findVertex(reservoirToRemove);
     if (reservoir == nullptr || reservoir->getInfo()[0] != 'R'){
-        std::cout << "O código fornecido: " << reservoirToRemove << ", não é válido." << std::endl;
+        std::cout << "The code provided: " << reservoirToRemove << "is not valid." << std::endl;
         return;
     }
     for (Edge* edge : reservoir->getAdj()) {
@@ -401,7 +403,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     std::vector<std::pair<std::string, double>> flowBefore;
     std::vector<std::pair<std::string, double>> flowAfter;
     std::vector<std::pair<std::string, double>> flowRatio;
-    double total_max_flow;
+    double total_max_flow = 0;
     maxFlowEachCity(&_waterSupplySystem, &total_max_flow);
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'C') {
@@ -426,28 +428,32 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         }
     }
     if (count_removable_stations > 0) {
-        std::cout << "Existem " << count_removable_stations << " pumping stations que podem ser desativadas temporariamente sem afetar o max flow da network." << std::endl;
+        std::cout << "There are " << count_removable_stations << " pumping stations pumping stations that can be temporarily deactivated without affecting the network's max flow." << std::endl;
     }
     else {
-        std::cout << "Não existem pumping stations que não afetem o maw flow da network." << std::endl;
+        std::cout << "There are no pumping stations that don't affect the network's maw flow." << std::endl;
     }
     char in_aux;
-    std::cout << "Deseja ver as cidades mais afetadas se desativarmos uma determinada pumping station? (y/n) ";
+    std::cout << "Do you want to see the cities most affected if we disable a particular pumping station? (y/n) ";
     std::cin >> in_aux;
     if (in_aux == 'n') {
         return;
     }
     else if (in_aux == 'y') {
         std::string in_aux2;
-        std::cout << "Qual é o código da pumping station desejada? ";
+        std::cout << "What is the code for the desired pumping station? ";
         std::cin >> in_aux2;
+        if (_stationMap.find(in_aux2) == nullptr) {
+            std::cout << "Pumping station not found." << std::endl;
+            return;
+        }
         Graph* aux2 = copyGraphAux(&_waterSupplySystem);
         aux2->removeVertex(in_aux2);
         double max_flow_specific2 = 0;
         maxFlowEachCity(aux2, &max_flow_specific2);
 
         if (max_flow_specific2 == total_max_flow) {
-            std::cout << "Esta pumping station não afeta o flow de nenhuma city." << std::endl;
+            std::cout << "This pumping station does not affect the flow of any city." << std::endl;
             return;
         }
         else {
@@ -471,30 +477,66 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             std::sort(flowRatio.begin(), flowRatio.end(), [](const auto& a, const auto& b) {
                 return a.second < b.second;
             });
+            int num_affected = 0;
+            for(auto & j : flowRatio) {
+                if (j.second != 1) num_affected++;
+            }
 
             int n;
-            std::cout << "Qual a n-ésima cidade mais afetada que deseja obter? ";
-            std::cin >> n;
+            std::string line;
+            std::cout << "Were affected " << num_affected << " cities, how many do you want to see? ";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            while (true) {
+                std::getline(std::cin, line);
+                std::stringstream in(line);
+
+                if (in >> n) {
+                    char check;
+                    if (in >> check) {
+                        std::cout << "Error: Invalid input. Please enter a valid number without any extra characters: ";
+                    } else if (n > 0 && n <= num_affected) {
+                        break;
+                    } else {
+                        std::cout << "Error: Invalid input. Please enter a valid number between 1 and " << num_affected << ": ";
+                    }
+                } else {
+                    std::cout << "Error: Invalid input. Please enter a number: ";
+                }
+                in.clear();
+            }
+
             for (int i = 0; i < flowRatio.size(); i++) {
-                if ( (i+1) == n) {
+                if ( (i+1) <= n) {
                     City city = _cityMap.at(flowRatio[i].first);
-                    std::cout << "A cidade de " << city.getName() << " teve um decréscimo de " << std::round((1 - flowRatio[i].second) * 10000) / 100
-                    << "% no seu total incoming flow." << std::endl;
+                    std::cout << "The city of " << city.getName() << " saw a decrease of " << std::round((1 - flowRatio[i].second) * 10000) / 100
+                    << "% in its total incoming flow." << std::endl;
                 }
             }
             return;
         }
     }
     else {
-        std::cout << "Foram inseridos caracteres inválidos." << std::endl;
+        std::cout << "Invalid characters have been entered." << std::endl;
         return;
     }
 }
 
 void WaterSupplyManager::pipeline_failures(const std::string& src, const std::string& dest) {
+    if (_waterSupplySystem.findVertex(src) == nullptr) {
+        std::cout << "Source vertex not found." << std::endl;
+        if (_waterSupplySystem.findVertex(dest) == nullptr) {
+            std::cout << "Destiny vertex not found." << std::endl;
+            return;
+        }
+        return;
+    }
+    if (_waterSupplySystem.findVertex(dest) == nullptr) {
+        std::cout << "Destiny vertex not found." << std::endl;
+        return;
+    }
     std::vector<std::pair<std::string, double>> flowCitiesBefore;
     std::vector<std::pair<std::string, double>> flowCitiesAfter;
-    double aux_max_flow, original_max_flow;
+    double aux_max_flow = 0, original_max_flow = 0;
 
     maxFlowEachCity(&_waterSupplySystem, &original_max_flow);
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
