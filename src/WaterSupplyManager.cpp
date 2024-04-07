@@ -356,7 +356,7 @@ void WaterSupplyManager::balanceFlow() {
     double maxFlow = 0;
     maxFlowEachCity(&_waterSupplySystem, &maxFlow);
     analysisMetrics();
-
+/*
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'P') {
             double dif = 0;
@@ -378,7 +378,7 @@ void WaterSupplyManager::balanceFlow() {
             }
         }
     }
-
+*/
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         if (vertex->getInfo()[0] == 'R') {
             double out = 0;
