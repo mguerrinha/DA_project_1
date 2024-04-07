@@ -234,6 +234,7 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *maxFlow) {
 }
 
 void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &city) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (_cityMap.find(city) == nullptr) {
         std::cout << "City not found." << std::endl;
         return;
@@ -383,6 +384,7 @@ void WaterSupplyManager::balanceFlow() {
 void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToRemove){
     std::vector<std::pair<std::string,double>> removedEdges;
     Vertex* reservoir = _waterSupplySystem.findVertex(reservoirToRemove);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (reservoir == nullptr || reservoir->getInfo()[0] != 'R'){
         std::cout << "The code provided: " << reservoirToRemove << "is not valid." << std::endl;
         return;
@@ -434,15 +436,17 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
         std::cout << "There are no pumping stations that don't affect the network's maw flow." << std::endl;
     }
     char in_aux;
-    std::cout << "Do you want to see the cities most affected if we disable a particular pumping station? (y/n) ";
+    std::cout << "Do you want to see the cities most affected if we disable a particular pumping station? (y/n) "; // coloque yes/y1/Y aceita sempre desde que tenha y
     std::cin >> in_aux;
-    if (in_aux == 'n') {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (in_aux == 'n' || in_aux == 'N') {
         return;
     }
-    else if (in_aux == 'y') {
+    else if (in_aux == 'y' || in_aux == 'Y') {
         std::string in_aux2;
         std::cout << "What is the code for the desired pumping station? ";
         std::cin >> in_aux2;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (_stationMap.find(in_aux2) == nullptr) {
             std::cout << "Pumping station not found." << std::endl;
             return;
@@ -522,6 +526,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
 }
 
 void WaterSupplyManager::pipeline_failures(const std::string& src, const std::string& dest) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (_waterSupplySystem.findVertex(src) == nullptr) {
         std::cout << "Source vertex not found." << std::endl;
         if (_waterSupplySystem.findVertex(dest) == nullptr) {

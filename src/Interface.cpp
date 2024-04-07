@@ -25,6 +25,7 @@ void Interface::run() {
                 _waterSupplyManager.load_pipes("../Project1DataSetSmall/Pipes_Madeira.csv");
                 graph = _waterSupplyManager.getWaterSupplySystem();
                 mainMenuOptions(&graph);
+                running = false;
                 break;
 
             case 2:
@@ -34,6 +35,7 @@ void Interface::run() {
                 _waterSupplyManager.load_pipes("../Project1LargeDataSet/Pipes.csv");
                  graph = _waterSupplyManager.getWaterSupplySystem();
                 mainMenuOptions(&graph);
+                running = false;
                 break;
 
             case 3:
@@ -51,6 +53,7 @@ void Interface::run() {
                 _waterSupplyManager.load_pipes(file);
                 graph = _waterSupplyManager.getWaterSupplySystem();
                 mainMenuOptions(&graph);
+                running = false;
                 break;
 
             default:
@@ -78,9 +81,9 @@ int Interface::displayMainMenu() {
         std::cout << "Choose one option: ";
 
         std::getline(std::cin, line);
-        std::stringstream ss(line);
+        std::stringstream in(line);
 
-        if (ss >> option && (ss.eof() || ss.peek() == '\n' || ss.peek() == ' ')) {
+        if (in >> option && (in.eof() || in.peek() == '\n' || in.peek() == ' ')) {
             if (option >= 0 && option <= 8) {
                 validInput = true;
             }
@@ -108,9 +111,9 @@ int Interface::displayLoadOptions() {
         std::cout << "Choose one option: ";
 
         std::getline(std::cin, line);
-        std::stringstream ss(line);
+        std::stringstream in(line);
 
-        if (ss >> option && (ss.eof() || ss.peek() == '\n' || ss.peek() == ' ')) {
+        if (in >> option && (in.eof() || in.peek() == '\n' || in.peek() == ' ')) {
             if (option >= 0 && option <= 3) {
                 validInput = true;
             }
