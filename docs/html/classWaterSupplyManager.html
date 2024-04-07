@@ -69,48 +69,92 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Classe que representa uma sistema de gestão de abastecimento de água.  
+ <a href="classWaterSupplyManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="WaterSupplyManager_8h_source.html">WaterSupplyManager.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a82632f0db7c0fb58b543a1cc02547ed5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a82632f0db7c0fb58b543a1cc02547ed5">getRatio</a> () const</td></tr>
+<tr class="memdesc:a82632f0db7c0fb58b543a1cc02547ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém o ratio.  <a href="classWaterSupplyManager.html#a82632f0db7c0fb58b543a1cc02547ed5">More...</a><br /></td></tr>
+<tr class="separator:a82632f0db7c0fb58b543a1cc02547ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647bf2cdbdb268a85990f38213122bad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a647bf2cdbdb268a85990f38213122bad">setRatio</a> (double ratio)</td></tr>
+<tr class="memdesc:a647bf2cdbdb268a85990f38213122bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redefine o valor do ratio.  <a href="classWaterSupplyManager.html#a647bf2cdbdb268a85990f38213122bad">More...</a><br /></td></tr>
+<tr class="separator:a647bf2cdbdb268a85990f38213122bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd627fc1b107a4e33df07e16a1e2ba97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#afd627fc1b107a4e33df07e16a1e2ba97">WaterSupplyManager</a> ()</td></tr>
+<tr class="memdesc:afd627fc1b107a4e33df07e16a1e2ba97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor default da classe <a class="el" href="classWaterSupplyManager.html" title="Classe que representa uma sistema de gestão de abastecimento de água.">WaterSupplyManager</a>.  <a href="classWaterSupplyManager.html#afd627fc1b107a4e33df07e16a1e2ba97">More...</a><br /></td></tr>
 <tr class="separator:afd627fc1b107a4e33df07e16a1e2ba97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b68fce4234afbb7a47b9ce3044c2366"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a5b68fce4234afbb7a47b9ce3044c2366">load_cities</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a5b68fce4234afbb7a47b9ce3044c2366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carrega as informações sobre as cidades a partir de um arquivo CSV Complexidade : O(N)  <a href="classWaterSupplyManager.html#a5b68fce4234afbb7a47b9ce3044c2366">More...</a><br /></td></tr>
 <tr class="separator:a5b68fce4234afbb7a47b9ce3044c2366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94ff02e04e11d8965725e6d4b171a849"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a94ff02e04e11d8965725e6d4b171a849">load_stations</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a94ff02e04e11d8965725e6d4b171a849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carrega as informações sobre as estações de bombeamento a partir de um arquivo CSV Complexidade : O(N)  <a href="classWaterSupplyManager.html#a94ff02e04e11d8965725e6d4b171a849">More...</a><br /></td></tr>
 <tr class="separator:a94ff02e04e11d8965725e6d4b171a849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa71d86ffb0b91de533c6229cefc97fee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#aa71d86ffb0b91de533c6229cefc97fee">load_reservoirs</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:aa71d86ffb0b91de533c6229cefc97fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carrega as informações sobre os reservatórios de água a partir de um arquivo CSV Complexidade : O(N)  <a href="classWaterSupplyManager.html#aa71d86ffb0b91de533c6229cefc97fee">More...</a><br /></td></tr>
 <tr class="separator:aa71d86ffb0b91de533c6229cefc97fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae39ff30ba8c44eb917940b6ceecd7b8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#ae39ff30ba8c44eb917940b6ceecd7b8b">load_pipes</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:ae39ff30ba8c44eb917940b6ceecd7b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carrega as informações sobre os tubos de água a partir de um arquivo CSV Complexidade : O(N)  <a href="classWaterSupplyManager.html#ae39ff30ba8c44eb917940b6ceecd7b8b">More...</a><br /></td></tr>
 <tr class="separator:ae39ff30ba8c44eb917940b6ceecd7b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d037132f7f84a9513ae1bdd9de113cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGraph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a0d037132f7f84a9513ae1bdd9de113cc">getWaterSupplySystem</a> ()</td></tr>
+<tr class="memdesc:a0d037132f7f84a9513ae1bdd9de113cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém o grafo que representa o sistema de gestão de abastecimento de água.  <a href="classWaterSupplyManager.html#a0d037132f7f84a9513ae1bdd9de113cc">More...</a><br /></td></tr>
 <tr class="separator:a0d037132f7f84a9513ae1bdd9de113cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1fd1624266305ef9c9353fa1aa386c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#ac1fd1624266305ef9c9353fa1aa386c9">evaluateReservoirImpact</a> (const std::string &amp;reservoirToRemove)</td></tr>
+<tr class="memdesc:ac1fd1624266305ef9c9353fa1aa386c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avalia o impacto que teria a remoção de um water reservoir Complexidade: O(E + (VE + (V * (E^2)) + 3V) + N)  <a href="classWaterSupplyManager.html#ac1fd1624266305ef9c9353fa1aa386c9">More...</a><br /></td></tr>
 <tr class="separator:ac1fd1624266305ef9c9353fa1aa386c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c43c8134c3f7fb0826359c0c5d100f8"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="classCity.html">City</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a3c43c8134c3f7fb0826359c0c5d100f8">getCityMap</a> ()</td></tr>
+<tr class="memdesc:a3c43c8134c3f7fb0826359c0c5d100f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém a hash table associada às cidades.  <a href="classWaterSupplyManager.html#a3c43c8134c3f7fb0826359c0c5d100f8">More...</a><br /></td></tr>
 <tr class="separator:a3c43c8134c3f7fb0826359c0c5d100f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ba45b39b6370df42087a42e84d3f9f6"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="classStation.html">Station</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a6ba45b39b6370df42087a42e84d3f9f6">getStationMap</a> ()</td></tr>
+<tr class="memdesc:a6ba45b39b6370df42087a42e84d3f9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém a hash table associada às estações de bombeamento.  <a href="classWaterSupplyManager.html#a6ba45b39b6370df42087a42e84d3f9f6">More...</a><br /></td></tr>
 <tr class="separator:a6ba45b39b6370df42087a42e84d3f9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d5b1c5561a339a76b4f0c093a52c23b"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="classReservoir.html">Reservoir</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a8d5b1c5561a339a76b4f0c093a52c23b">getReservoirMap</a> ()</td></tr>
+<tr class="memdesc:a8d5b1c5561a339a76b4f0c093a52c23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém a hash table associada aos reservatórios de água.  <a href="classWaterSupplyManager.html#a8d5b1c5561a339a76b4f0c093a52c23b">More...</a><br /></td></tr>
 <tr class="separator:a8d5b1c5561a339a76b4f0c093a52c23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3058f52f6dec81575381d6c86ec8de61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGraph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a3058f52f6dec81575381d6c86ec8de61">getGraphCopy</a> (<a class="el" href="classGraph.html">Graph</a> *graph)</td></tr>
-<tr class="separator:a3058f52f6dec81575381d6c86ec8de61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e512f6e333b8ccdf97f80e55695f24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGraph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#ab2e512f6e333b8ccdf97f80e55695f24">copyGraphEdmonds</a> (<a class="el" href="classGraph.html">Graph</a> *graph)</td></tr>
+<tr class="memdesc:ab2e512f6e333b8ccdf97f80e55695f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Método auxiliar ao Edmonds Karp que cria o residual graph com as respectivas residual edges Complexidade : O(V + VE)  <a href="classWaterSupplyManager.html#ab2e512f6e333b8ccdf97f80e55695f24">More...</a><br /></td></tr>
+<tr class="separator:ab2e512f6e333b8ccdf97f80e55695f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08a5fc33e2d81b56bef657928fc554c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGraph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a08a5fc33e2d81b56bef657928fc554c7">copyGraphAux</a> (<a class="el" href="classGraph.html">Graph</a> *graph)</td></tr>
+<tr class="memdesc:a08a5fc33e2d81b56bef657928fc554c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copia as informações de um grafo para outro Complexidade: O(V + 2VE)  <a href="classWaterSupplyManager.html#a08a5fc33e2d81b56bef657928fc554c7">More...</a><br /></td></tr>
+<tr class="separator:a08a5fc33e2d81b56bef657928fc554c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55263cd8eb39bc2bbe5d9638ceb1afde"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a55263cd8eb39bc2bbe5d9638ceb1afde">bfsEdmondsKarp</a> (<a class="el" href="classGraph.html">Graph</a> *graph, <a class="el" href="classVertex.html">Vertex</a> *source, <a class="el" href="classVertex.html">Vertex</a> *target)</td></tr>
+<tr class="memdesc:a55263cd8eb39bc2bbe5d9638ceb1afde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realiza o algoritmo BFS para encontrar possíveis augmenting paths de uma source até um target Complexidade: O(V + E)  <a href="classWaterSupplyManager.html#a55263cd8eb39bc2bbe5d9638ceb1afde">More...</a><br /></td></tr>
 <tr class="separator:a55263cd8eb39bc2bbe5d9638ceb1afde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ac12c4671ba1399a6925e1b2ea5b59a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a3ac12c4671ba1399a6925e1b2ea5b59a">edmondsKarp</a> (const std::string &amp;source, const std::string &amp;target)</td></tr>
-<tr class="separator:a3ac12c4671ba1399a6925e1b2ea5b59a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f6fc5367daaab7c5b433e542c446766"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a4f6fc5367daaab7c5b433e542c446766">maxFlowEachCity</a> ()</td></tr>
-<tr class="separator:a4f6fc5367daaab7c5b433e542c446766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48a8102376e48f8eb3c7b2b11d6ab27c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a48a8102376e48f8eb3c7b2b11d6ab27c">maxFlowSpecificCity</a> (const std::string &amp;city)</td></tr>
-<tr class="separator:a48a8102376e48f8eb3c7b2b11d6ab27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5d4079638aa9499e430e167b352662d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#ac5d4079638aa9499e430e167b352662d">checkSuficientFlow</a> ()</td></tr>
-<tr class="separator:ac5d4079638aa9499e430e167b352662d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2d3c59afd947badcc45dbb680de37b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#aa2d3c59afd947badcc45dbb680de37b1">edmondsKarp</a> (<a class="el" href="classGraph.html">Graph</a> *graph, const std::string &amp;source, const std::string &amp;target)</td></tr>
+<tr class="memdesc:aa2d3c59afd947badcc45dbb680de37b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realiza o algoritmo de Edmonds-Karp para encontrar o max flow entre dois pontos Complexidade: O(V * (E^2))  <a href="classWaterSupplyManager.html#aa2d3c59afd947badcc45dbb680de37b1">More...</a><br /></td></tr>
+<tr class="separator:aa2d3c59afd947badcc45dbb680de37b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e975e27f9cb6070f4f309d03cff40d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a82e975e27f9cb6070f4f309d03cff40d">maxFlowEachCity</a> (<a class="el" href="classGraph.html">Graph</a> *graph, double *maxFlow)</td></tr>
+<tr class="memdesc:a82e975e27f9cb6070f4f309d03cff40d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica o max flow total do sistema Complexidade: O(VE + (V * (E^2)) + 2V)  <a href="classWaterSupplyManager.html#a82e975e27f9cb6070f4f309d03cff40d">More...</a><br /></td></tr>
+<tr class="separator:a82e975e27f9cb6070f4f309d03cff40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e45394cc92d7bca61da77661cddb86a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a7e45394cc92d7bca61da77661cddb86a">maxFlowSpecificCity</a> (<a class="el" href="classGraph.html">Graph</a> *graph, const std::string &amp;city)</td></tr>
+<tr class="memdesc:a7e45394cc92d7bca61da77661cddb86a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica o max flow que atinge uma certa cidade Complexidade: O(VE + (V * (E^2)) + 3V)  <a href="classWaterSupplyManager.html#a7e45394cc92d7bca61da77661cddb86a">More...</a><br /></td></tr>
+<tr class="separator:a7e45394cc92d7bca61da77661cddb86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a363d7a80c5efee5c60bfca87d1b5f590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a363d7a80c5efee5c60bfca87d1b5f590">checkSuficientFlow</a> (<a class="el" href="classGraph.html">Graph</a> *graph)</td></tr>
+<tr class="memdesc:a363d7a80c5efee5c60bfca87d1b5f590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica as cidades cujo que não receberam as quantidades de água desejadas, tendo em conta a sua demanda Complexidade: O(VE + (V * (E^2)) + 3V)  <a href="classWaterSupplyManager.html#a363d7a80c5efee5c60bfca87d1b5f590">More...</a><br /></td></tr>
+<tr class="separator:a363d7a80c5efee5c60bfca87d1b5f590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67f439e2eb83886c36acc2e122a87490"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a67f439e2eb83886c36acc2e122a87490">analysisMetrics</a> ()</td></tr>
+<tr class="memdesc:a67f439e2eb83886c36acc2e122a87490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analisa a média, variância e diferença máxima entre a capacidade e o flow que percorrem as pipelines Complexidade: O(2VE + 2N)  <a href="classWaterSupplyManager.html#a67f439e2eb83886c36acc2e122a87490">More...</a><br /></td></tr>
 <tr class="separator:a67f439e2eb83886c36acc2e122a87490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7773055164b5b4c158ae7061799cc221"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a7773055164b5b4c158ae7061799cc221">balanceFlow</a> ()</td></tr>
+<tr class="memdesc:a7773055164b5b4c158ae7061799cc221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Função que balanceia o flow da network de forma a baixar a média, variância ou diferença máxima entre a capacidade e o flow das pipelines Complexidade: O(VE + V(E + E))  <a href="classWaterSupplyManager.html#a7773055164b5b4c158ae7061799cc221">More...</a><br /></td></tr>
 <tr class="separator:a7773055164b5b4c158ae7061799cc221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae370955fb0a07d680638765725318e1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#ae370955fb0a07d680638765725318e1e">periodic_maintenance_pumping_stations</a> ()</td></tr>
+<tr class="memdesc:ae370955fb0a07d680638765725318e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analisa as cidades mais afetadas em caso de uma pumping station ser removida Complexidade: O((2+V)(VE + (V * (E^2)) + 2V) + 2VE + N^2 + N)  <a href="classWaterSupplyManager.html#ae370955fb0a07d680638765725318e1e">More...</a><br /></td></tr>
+<tr class="separator:ae370955fb0a07d680638765725318e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dfb009dde530053b50105b3688e0f98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#a8dfb009dde530053b50105b3688e0f98">pipeline_failures</a> (const std::string &amp;src, const std::string &amp;dest)</td></tr>
+<tr class="memdesc:a8dfb009dde530053b50105b3688e0f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analisa as cidades mais afetadas em caso de uma pipeline ser removida Complexidade: O(2(VE + (V * (E^2)) + 2V) + 2VE + N^2)  <a href="classWaterSupplyManager.html#a8dfb009dde530053b50105b3688e0f98">More...</a><br /></td></tr>
+<tr class="separator:a8dfb009dde530053b50105b3688e0f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25b7bde338a8ce4cdecb4b0f9843854"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#aa25b7bde338a8ce4cdecb4b0f9843854">saveResultsToFile</a> ()</td></tr>
+<tr class="memdesc:aa25b7bde338a8ce4cdecb4b0f9843854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva os flows associados a cada cidade (tendo cada uma nome e código) num ficheiro csv Complexidade: O(VE)  <a href="classWaterSupplyManager.html#aa25b7bde338a8ce4cdecb4b0f9843854">More...</a><br /></td></tr>
+<tr class="separator:aa25b7bde338a8ce4cdecb4b0f9843854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae99d3b5d3a15d50b51ae45602e812ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWaterSupplyManager.html#aae99d3b5d3a15d50b51ae45602e812ba">fullDeliveryPS</a> (<a class="el" href="classVertex.html">Vertex</a> *ps, double *dif)</td></tr>
+<tr class="memdesc:aae99d3b5d3a15d50b51ae45602e812ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica a diferença de outcoming de flow com o incoming flow de um <a class="el" href="classVertex.html">Vertex</a> Complexidade: O(2E)  <a href="classWaterSupplyManager.html#aae99d3b5d3a15d50b51ae45602e812ba">More...</a><br /></td></tr>
+<tr class="separator:aae99d3b5d3a15d50b51ae45602e812ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Classe que representa uma sistema de gestão de abastecimento de água. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afd627fc1b107a4e33df07e16a1e2ba97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd627fc1b107a4e33df07e16a1e2ba97">&#9670;&nbsp;</a></span>WaterSupplyManager()</h2>
 
@@ -134,6 +178,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Constructor default da classe <a class="el" href="classWaterSupplyManager.html" title="Classe que representa uma sistema de gestão de abastecimento de água.">WaterSupplyManager</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -152,6 +198,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Analisa a média, variância e diferença máxima entre a capacidade e o flow que percorrem as pipelines Complexidade: O(2VE + 2N) </p>
+
 </div>
 </div>
 <a id="a7773055164b5b4c158ae7061799cc221"></a>
@@ -168,6 +216,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Função que balanceia o flow da network de forma a baixar a média, variância ou diferença máxima entre a capacidade e o flow das pipelines Complexidade: O(VE + V(E + E)) </p>
 
 </div>
 </div>
@@ -203,10 +253,21 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Realiza o algoritmo BFS para encontrar possíveis augmenting paths de uma source até um target Complexidade: O(V + E) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Grafo a ser percorrido </td></tr>
+    <tr><td class="paramname">source</td><td><a class="el" href="classVertex.html">Vertex</a> de origem </td></tr>
+    <tr><td class="paramname">target</td><td><a class="el" href="classVertex.html">Vertex</a> alvo </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True se for encontrado um path, falso caso contrário </dd></dl>
+
 </div>
 </div>
-<a id="ac5d4079638aa9499e430e167b352662d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5d4079638aa9499e430e167b352662d">&#9670;&nbsp;</a></span>checkSuficientFlow()</h2>
+<a id="a363d7a80c5efee5c60bfca87d1b5f590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a363d7a80c5efee5c60bfca87d1b5f590">&#9670;&nbsp;</a></span>checkSuficientFlow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,16 +275,73 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void WaterSupplyManager::checkSuficientFlow </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Verifica as cidades cujo que não receberam as quantidades de água desejadas, tendo em conta a sua demanda Complexidade: O(VE + (V * (E^2)) + 3V) </p>
+
 </div>
 </div>
-<a id="a3ac12c4671ba1399a6925e1b2ea5b59a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ac12c4671ba1399a6925e1b2ea5b59a">&#9670;&nbsp;</a></span>edmondsKarp()</h2>
+<a id="a08a5fc33e2d81b56bef657928fc554c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08a5fc33e2d81b56bef657928fc554c7">&#9670;&nbsp;</a></span>copyGraphAux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classGraph.html">Graph</a> * WaterSupplyManager::copyGraphAux </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copia as informações de um grafo para outro Complexidade: O(V + 2VE) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Grafo cujas informações irão ser copiadas </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cópia do grafo pretendido </dd></dl>
+
+</div>
+</div>
+<a id="ab2e512f6e333b8ccdf97f80e55695f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2e512f6e333b8ccdf97f80e55695f24">&#9670;&nbsp;</a></span>copyGraphEdmonds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classGraph.html">Graph</a> * WaterSupplyManager::copyGraphEdmonds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Método auxiliar ao Edmonds Karp que cria o residual graph com as respectivas residual edges Complexidade : O(V + VE) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>Grafo cujas informações irão ser copiadas </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Residual graph do grafo pretendido </dd></dl>
+
+</div>
+</div>
+<a id="aa2d3c59afd947badcc45dbb680de37b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2d3c59afd947badcc45dbb680de37b1">&#9670;&nbsp;</a></span>edmondsKarp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,6 +349,12 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void WaterSupplyManager::edmondsKarp </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>source</em>, </td>
         </tr>
@@ -247,6 +371,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Realiza o algoritmo de Edmonds-Karp para encontrar o max flow entre dois pontos Complexidade: O(V * (E^2)) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td><a class="el" href="classVertex.html">Vertex</a> de origem </td></tr>
+    <tr><td class="paramname">target</td><td><a class="el" href="classVertex.html">Vertex</a> alvo </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -266,6 +399,52 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Avalia o impacto que teria a remoção de um water reservoir Complexidade: O(E + (VE + (V * (E^2)) + 3V) + N) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reservoirToRemove</td><td>Reservatório a remover </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aae99d3b5d3a15d50b51ae45602e812ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae99d3b5d3a15d50b51ae45602e812ba">&#9670;&nbsp;</a></span>fullDeliveryPS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool WaterSupplyManager::fullDeliveryPS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classVertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>ps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>dif</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifica a diferença de outcoming de flow com o incoming flow de um <a class="el" href="classVertex.html">Vertex</a> Complexidade: O(2E) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ps</td><td><a class="el" href="classVertex.html">Vertex</a> a utilizar </td></tr>
+    <tr><td class="paramname">dif</td><td>Diferença entre o incoming e o outcoming flow </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Verdadeiro se o outcoming flow for igual ao incoming flow, falso caso contrário </dd></dl>
+
 </div>
 </div>
 <a id="a3c43c8134c3f7fb0826359c0c5d100f8"></a>
@@ -283,23 +462,28 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Obtém a hash table associada às cidades. </p>
+<dl class="section return"><dt>Returns</dt><dd>Hash table associada às cidades </dd></dl>
+
 </div>
 </div>
-<a id="a3058f52f6dec81575381d6c86ec8de61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3058f52f6dec81575381d6c86ec8de61">&#9670;&nbsp;</a></span>getGraphCopy()</h2>
+<a id="a82632f0db7c0fb58b543a1cc02547ed5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82632f0db7c0fb58b543a1cc02547ed5">&#9670;&nbsp;</a></span>getRatio()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classGraph.html">Graph</a> * WaterSupplyManager::getGraphCopy </td>
+          <td class="memname">double WaterSupplyManager::getRatio </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
-          <td class="paramname"><em>graph</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Obtém o ratio. </p>
+<dl class="section return"><dt>Returns</dt><dd>Ratio </dd></dl>
 
 </div>
 </div>
@@ -318,6 +502,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Obtém a hash table associada aos reservatórios de água. </p>
+<dl class="section return"><dt>Returns</dt><dd>Hash table associada aos reservatórios de água </dd></dl>
+
 </div>
 </div>
 <a id="a6ba45b39b6370df42087a42e84d3f9f6"></a>
@@ -335,6 +522,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Obtém a hash table associada às estações de bombeamento. </p>
+<dl class="section return"><dt>Returns</dt><dd>Hash table associada às estações de bombeamento </dd></dl>
+
 </div>
 </div>
 <a id="a0d037132f7f84a9513ae1bdd9de113cc"></a>
@@ -351,6 +541,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Obtém o grafo que representa o sistema de gestão de abastecimento de água. </p>
+<dl class="section return"><dt>Returns</dt><dd>Grafo que representa o sistema de gestão de abastecimento de água </dd></dl>
 
 </div>
 </div>
@@ -370,6 +563,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Carrega as informações sobre as cidades a partir de um arquivo CSV Complexidade : O(N) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae39ff30ba8c44eb917940b6ceecd7b8b"></a>
@@ -387,6 +588,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Carrega as informações sobre os tubos de água a partir de um arquivo CSV Complexidade : O(N) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -406,6 +615,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Carrega as informações sobre os reservatórios de água a partir de um arquivo CSV Complexidade : O(N) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a94ff02e04e11d8965725e6d4b171a849"></a>
@@ -424,10 +641,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Carrega as informações sobre as estações de bombeamento a partir de um arquivo CSV Complexidade : O(N) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a4f6fc5367daaab7c5b433e542c446766"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f6fc5367daaab7c5b433e542c446766">&#9670;&nbsp;</a></span>maxFlowEachCity()</h2>
+<a id="a82e975e27f9cb6070f4f309d03cff40d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e975e27f9cb6070f4f309d03cff40d">&#9670;&nbsp;</a></span>maxFlowEachCity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,16 +660,29 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void WaterSupplyManager::maxFlowEachCity </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>maxFlow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Verifica o max flow total do sistema Complexidade: O(VE + (V * (E^2)) + 2V) </p>
+
 </div>
 </div>
-<a id="a48a8102376e48f8eb3c7b2b11d6ab27c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48a8102376e48f8eb3c7b2b11d6ab27c">&#9670;&nbsp;</a></span>maxFlowSpecificCity()</h2>
+<a id="a7e45394cc92d7bca61da77661cddb86a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e45394cc92d7bca61da77661cddb86a">&#9670;&nbsp;</a></span>maxFlowSpecificCity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,12 +690,131 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void WaterSupplyManager::maxFlowSpecificCity </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="classGraph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>city</em></td><td>)</td>
+          <td class="paramname"><em>city</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifica o max flow que atinge uma certa cidade Complexidade: O(VE + (V * (E^2)) + 3V) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">city</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae370955fb0a07d680638765725318e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae370955fb0a07d680638765725318e1e">&#9670;&nbsp;</a></span>periodic_maintenance_pumping_stations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupplyManager::periodic_maintenance_pumping_stations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Analisa as cidades mais afetadas em caso de uma pumping station ser removida Complexidade: O((2+V)(VE + (V * (E^2)) + 2V) + 2VE + N^2 + N) </p>
+
+</div>
+</div>
+<a id="a8dfb009dde530053b50105b3688e0f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dfb009dde530053b50105b3688e0f98">&#9670;&nbsp;</a></span>pipeline_failures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupplyManager::pipeline_failures </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>dest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analisa as cidades mais afetadas em caso de uma pipeline ser removida Complexidade: O(2(VE + (V * (E^2)) + 2V) + 2VE + N^2) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Source da pipeline a ser removida </td></tr>
+    <tr><td class="paramname">dest</td><td>Destiny da pipeline a ser removida </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa25b7bde338a8ce4cdecb4b0f9843854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25b7bde338a8ce4cdecb4b0f9843854">&#9670;&nbsp;</a></span>saveResultsToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupplyManager::saveResultsToFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Salva os flows associados a cada cidade (tendo cada uma nome e código) num ficheiro csv Complexidade: O(VE) </p>
+
+</div>
+</div>
+<a id="a647bf2cdbdb268a85990f38213122bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647bf2cdbdb268a85990f38213122bad">&#9670;&nbsp;</a></span>setRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupplyManager::setRatio </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>ratio</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Redefine o valor do ratio. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ratio</td><td>Ratio a definir </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
