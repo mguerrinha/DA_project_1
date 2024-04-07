@@ -173,6 +173,9 @@ public:
      * @param dest Destiny da pipeline a ser removida
      */
     void pipeline_failures(const std::string& src, const std::string& dest);
+
+    void saveResultsToFile();
+
 };
 
 #endif //DA_PROJECT_1_WATERSUPPLYMANAGER_H

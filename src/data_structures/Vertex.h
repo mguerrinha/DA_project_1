@@ -4,6 +4,7 @@
 #include "Edge.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Edge;
 

@@ -100,6 +100,25 @@ Graph WaterSupplyManager::getWaterSupplySystem() {
     return _waterSupplySystem;
 }
 
+void WaterSupplyManager::saveResultsToFile() {
+    std::fstream file;
+    file.open("../docs/flow_results.csv", std::ios::out);
+    if (file) {
+        file << "NAME,CODE,FLOW" << std::endl;
+        for (Vertex *v: _waterSupplySystem.getVertexSet()) {
+            if (v->getInfo()[0] == 'C') {
+                City city = _cityMap.at(v->getInfo());
+                int maxFlow = 0;
+                for (Edge* edge : v->getIncoming()) {
+                    maxFlow += edge->getFlow();
+                }
+                file << city.getName() << "," << city.getCode() << "," << std::to_string(maxFlow) << std::endl;
+            }
+        }
+        file.close();
+    }
+}
+
 Graph* WaterSupplyManager::copyGraphEdmonds(Graph *graph) {
     auto* newGraph = new Graph();
 
@@ -231,6 +250,7 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *maxFlow) {
 
     graph->removeVertex("source");
     graph->removeVertex("target");
+    saveResultsToFile();
 }
 
 void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &city) {
@@ -435,14 +455,13 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
     else {
         std::cout << "There are no pumping stations that don't affect the network's maw flow." << std::endl;
     }
-    char in_aux;
-    std::cout << "Do you want to see the cities most affected if we disable a particular pumping station? (y/n) "; // coloque yes/y1/Y aceita sempre desde que tenha y
-    std::cin >> in_aux;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (in_aux == 'n' || in_aux == 'N') {
+    std::string in_aux;
+    std::cout << "Do you want to see the cities most affected if we disable a particular pumping station? (y/n) ";
+    std::getline(std::cin, in_aux);
+    if (in_aux == "n" || in_aux == "N") {
         return;
     }
-    else if (in_aux == 'y' || in_aux == 'Y') {
+    else if (in_aux == "y" || in_aux == "Y") {
         std::string in_aux2;
         std::cout << "What is the code for the desired pumping station? ";
         std::cin >> in_aux2;
@@ -481,7 +500,7 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             std::sort(flowRatio.begin(), flowRatio.end(), [](const auto& a, const auto& b) {
                 return a.second < b.second;
             });
-            int num_affected = 0;
+            int num_affected = 0, num_affected_aux = 0;
             for(auto & j : flowRatio) {
                 if (j.second != 1) num_affected++;
             }
@@ -489,7 +508,6 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
             int n;
             std::string line;
             std::cout << "Were affected " << num_affected << " cities, how many do you want to see? ";
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             while (true) {
                 std::getline(std::cin, line);
                 std::stringstream in(line);
@@ -509,11 +527,22 @@ void WaterSupplyManager::periodic_maintenance_pumping_stations() {
                 in.clear();
             }
 
-            for (int i = 0; i < flowRatio.size(); i++) {
-                if ( (i+1) <= n) {
-                    City city = _cityMap.at(flowRatio[i].first);
-                    std::cout << "The city of " << city.getName() << " saw a decrease of " << std::round((1 - flowRatio[i].second) * 10000) / 100
-                    << "% in its total incoming flow." << std::endl;
+            for(auto & i : flowRatio) {
+                if (num_affected_aux < num_affected) {
+                    City city = _cityMap.at(i.first);
+                    if (i.second > 1) {
+                        std::cout << "The city of " << city.getName() << " saw a increase of " << std::round((i.second - 1) * 10000) / 100
+                                  << "% in its total incoming flow." << std::endl;
+                        num_affected_aux++;
+                    }
+                    if (i.second < 1) {
+                        std::cout << "The city of " << city.getName() << " saw a decrease of " << std::round((1 - i.second) * 10000) / 100
+                                  << "% in its total incoming flow." << std::endl;
+                        num_affected_aux++;
+                    }
+                    if (i.second == 1) {
+                        continue;
+                    }
                 }
             }
             return;
@@ -567,6 +596,7 @@ void WaterSupplyManager::pipeline_failures(const std::string& src, const std::st
         }
     }
 
+    int num_checks = 0;
     for (const auto& pair1: flowCitiesBefore) {
         for (const auto& pair2: flowCitiesAfter) {
             if (pair1.first == pair2.first) {
@@ -577,12 +607,17 @@ void WaterSupplyManager::pipeline_failures(const std::string& src, const std::st
                 else if (deficit > 0){
                     City city = _cityMap.at(_waterSupplySystem.findVertex(pair1.first)->getInfo());
                     std::cout << city.getName() << " | " << pair1.first << " --> Water Supply in Deficit (in losses): " << deficit << std::endl;
+                    num_checks++;
                 }
                 else {
                     City city = _cityMap.at(_waterSupplySystem.findVertex(pair1.first)->getInfo());
                     std::cout << city.getName() << " | " << pair1.first << " --> Water Supply in Deficit (in gains): " << -deficit << std::endl;
+                    num_checks++;
                 }
             }
         }
+    }
+    if (num_checks == 0) {
+        std::cout << "No changes found." << std::endl;
     }
 }
