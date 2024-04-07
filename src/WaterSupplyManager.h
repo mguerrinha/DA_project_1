@@ -31,7 +31,12 @@ private:
     /// Hash table tendo o código de um reservatório de água associado a um objeto Reservoir
     std::unordered_map<std::string, Reservoir> _reservoirMap;
 
+    double ratio;
+
 public:
+    double getRatio() const;
+
+    void setRatio(double ratio);
     /**
      * @brief Constructor default da classe WaterSupplyManager
      */
@@ -174,6 +179,8 @@ public:
      * @param dest Destiny da pipeline a ser removida
      */
     void pipeline_failures(const std::string& src, const std::string& dest);
+
+    bool fullDeliveryPS(Vertex* ps, double *dif);
 };
 
 #endif //DA_PROJECT_1_WATERSUPPLYMANAGER_H

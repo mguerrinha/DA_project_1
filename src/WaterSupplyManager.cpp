@@ -233,6 +233,16 @@ void WaterSupplyManager::maxFlowEachCity(Graph* graph, double *maxFlow) {
 
     graph->removeVertex("source");
     graph->removeVertex("target");
+
+    double _ratio = 0;
+    std::vector<double> ratios;
+    for (Vertex* vertex : graph->getVertexSet()) {
+        for (Edge* edge : vertex->getAdj()) {
+            _ratio += edge->getFlow()/edge->getWeight();
+            ratios.push_back(edge->getFlow()/edge->getWeight());
+        }
+    }
+    ratio = _ratio / ratios.size();
 }
 
 void WaterSupplyManager::maxFlowSpecificCity(Graph* graph, const std::string &city) {
@@ -274,8 +284,6 @@ void WaterSupplyManager::checkSuficientFlow(Graph* graph) {
 }
 
 void WaterSupplyManager::analysisMetrics() {
-    double maxFlow = 0;
-    maxFlowEachCity(&_waterSupplySystem, &maxFlow);
     for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
         for (Edge* edge : vertex->getAdj()) {
             edge->setSelected(false);
@@ -285,10 +293,14 @@ void WaterSupplyManager::analysisMetrics() {
     double variance_difference = 0;
     double current_difference;
     double max_dif = 0;
+    double _ratio = 0;
+    std::vector<double> ratios;
     std::vector<double> differences;
     for (Vertex* v : _waterSupplySystem.getVertexSet()) {
         for (Edge* e : v->getAdj()) {
             if (!e->isSelected()) {
+                _ratio += e->getFlow()/e->getWeight();
+                ratios.push_back(e->getFlow()/e->getWeight());
                 current_difference = e->getWeight()-std::abs(e->getFlow());
                 differences.push_back(current_difference);
                 average_difference += current_difference;
@@ -297,6 +309,8 @@ void WaterSupplyManager::analysisMetrics() {
             }
         }
     }
+    ratio = _ratio / ratios.size();
+    std::cout << ratio << std::endl;
     std::cout << "A diferença máxima atual entre a capacidade e o flow de um pipe é " << max_dif << "." << std::endl;
 
     average_difference /= differences.size();
@@ -316,66 +330,57 @@ void WaterSupplyManager::analysisMetrics() {
 }
 
 void WaterSupplyManager::balanceFlow() {
-    /*
-    std::vector<std::pair<double, Edge*>> auxEdges;
-    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
-        for (Edge* e : v->getAdj()) {
-            if (!e->isSelected()) {
-                auxEdges.emplace_back(e->getFlow()/ e->getWeight(), e);
-                e->setSelected(true);
+    double maxFlow = 0;
+    maxFlowEachCity(&_waterSupplySystem, &maxFlow);
+    analysisMetrics();
+
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo()[0] == 'P') {
+            double dif = 0;
+            if (!fullDeliveryPS(vertex, &dif)) {
+                for (Edge* edge : vertex->getIncoming()) {
+                    double auxRatio = edge->getFlow() / edge->getWeight();
+                    if (auxRatio > ratio) {
+                        double dif_ratio = auxRatio - ratio;
+                        if (dif_ratio * edge->getWeight() <= dif) {
+                            edge->setFlow(edge->getFlow() - dif_ratio * edge->getWeight());
+                            dif -= dif_ratio * edge->getWeight();
+                        }
+                        else {
+                            edge->setFlow(edge->getFlow() - dif);
+                        }
+                    }
+                }
             }
         }
     }
 
-    std::sort(auxEdges.begin(), auxEdges.end(), [](const auto& a, const auto& b) {
-        return a.first > b.first;
-    });
-
-    for (const auto& pair : auxEdges) { // Antes
-        std::cout << pair.first << std::endl;
-    }
-
-    for (auto& overloaded : auxEdges) {
-        for (auto& underloaded : auxEdges) {
-            if(overloaded.second->getOrig() == underloaded.second->getOrig() && overloaded.second->getDest() == underloaded.second->getDest()) continue;
-
-            if(overloaded.first < 0 || underloaded.first < 0) continue;
-
-            if(overloaded.first >= 0.5 && overloaded.first < 0.6) continue;
-
-            if(underloaded.first >= 0.5 && underloaded.first < 0.6) continue;
-
-            if(underloaded.first == 0 && overloaded.second->getFlow() < underloaded.second->getWeight()) {
-                double excessFlow = overloaded.second->getFlow() / 2;
-                overloaded.second->setFlow(overloaded.second->getFlow() - excessFlow);
-                overloaded.first = overloaded.second->getFlow() / overloaded.second->getWeight();
-                underloaded.second->setFlow(underloaded.second->getFlow() + excessFlow);
-                underloaded.first = underloaded.second->getFlow() / underloaded.second->getWeight();
+    for (Vertex* vertex : _waterSupplySystem.getVertexSet()) {
+        if (vertex->getInfo()[0] == 'R') {
+            double out = 0;
+            for (Edge* edge : vertex->getAdj()) {
+                out += edge->getFlow();
             }
-            if (overloaded.first - underloaded.first > 0.45 && overloaded.second->getFlow() < underloaded.second->getWeight()) {
-                double excessFlow = overloaded.second->getFlow() * 0.45;
-                overloaded.second->setFlow(overloaded.second->getFlow() - excessFlow);
-                overloaded.first = overloaded.second->getFlow() / overloaded.second->getWeight();
-                underloaded.second->setFlow(underloaded.second->getFlow() + excessFlow);
-                underloaded.first = underloaded.second->getFlow() / underloaded.second->getWeight();
+            if (out < _reservoirMap.at(vertex->getInfo()).getMaxDelivery()) {
+                double dif = _reservoirMap.at(vertex->getInfo()).getMaxDelivery() - out;
+                for (Edge* edge : vertex->getAdj()) {
+                    double aux_ratio = edge->getFlow() / edge->getWeight();
+                    if (aux_ratio < ratio) {
+                        double dif2 = ratio - aux_ratio;
+                        if (dif2 * edge->getWeight() <= dif) {
+                            edge->setFlow(edge->getFlow() + dif2 * edge->getWeight());
+                            dif -= dif2 * edge->getWeight();
+                        }
+                        else {
+                            edge->setFlow(edge->getFlow() + dif);
+                        }
+                    }
+                }
             }
         }
     }
 
-    std::cout << "----------------------" << std::endl;
-
-    for (const auto& pair : auxEdges) { // Depois
-        std::cout << pair.first << std::endl;
-    }
-
-    for (Vertex* v : _waterSupplySystem.getVertexSet()) {
-        for (Edge* e : v->getAdj()) {
-            e->setSelected(false);
-        }
-    }
-    */
-
-
+    analysisMetrics();
 }
 
 void WaterSupplyManager::evaluateReservoirImpact(const std::string& reservoirToRemove){
@@ -538,4 +543,24 @@ void WaterSupplyManager::pipeline_failures(const std::string& src, const std::st
             }
         }
     }
+}
+
+double WaterSupplyManager::getRatio() const {
+    return ratio;
+}
+
+void WaterSupplyManager::setRatio(double ratio) {
+    this->ratio = ratio;
+}
+
+bool WaterSupplyManager::fullDeliveryPS(Vertex *ps, double *dif) {
+    double in = 0, out = 0;
+    for (Edge* edge : ps->getIncoming()) {
+        in += edge->getFlow();
+    }
+    for (Edge* edge : ps->getAdj()) {
+        out += edge->getFlow();
+    }
+    *dif = in - out;
+    return in == out;
 }
