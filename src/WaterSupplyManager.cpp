@@ -348,6 +348,7 @@ void WaterSupplyManager::balanceFlow() {
                         }
                         else {
                             edge->setFlow(edge->getFlow() - dif);
+                            break;
                         }
                     }
                 }
@@ -373,6 +374,7 @@ void WaterSupplyManager::balanceFlow() {
                         }
                         else {
                             edge->setFlow(edge->getFlow() + dif);
+                            break;
                         }
                     }
                 }
